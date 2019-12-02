@@ -1,5 +1,5 @@
 const graphql = require('graphql');
-const { GraphQLObjectType, GraphQLString, GraphQLSchema, GraphQLID, GraphQLInt, GraphQLList, GraphQLFloat } = graphql;
+const { GraphQLObjectType, GraphQLString, GraphQLSchema, GraphQLID, GraphQLFloat, GraphQLList, GraphQLNonNull } = graphql;
 const Laptop = require('../models/Laptop');
 const User = require('../models/User');
 
@@ -25,7 +25,7 @@ const AuthorType = new GraphQLObjectType({
     fields: () => ({
         id: { type: GraphQLID },
         email: { type: GraphQLString },
-        username: { type: GraphQLInt },
+        username: { type: GraphQLString },
         myLaptops: {
             type: new GraphQLList(LaptopType),
             resolve(parent, args) {
@@ -57,10 +57,37 @@ const RootQuery = new GraphQLObjectType({
             resolve(parent, args) {
                 return Laptop.find();
             }
-        }        
+        }
+    }
+});
+
+const Mutation = new GraphQLObjectType({
+    name: 'Mutation',
+    fields: {
+        addLaptop: {
+            type: LaptopType,
+            args: {
+                model: { type: new GraphQLNonNull(GraphQLString) },
+                url: { type: new GraphQLNonNull(GraphQLString) },
+                description: { type: new GraphQLNonNull(GraphQLString) },
+                price: { type: new GraphQLNonNull(GraphQLFloat) },
+                author: { type: new GraphQLNonNull(GraphQLID) }
+            },
+            resolve(parent, args) {
+                const laptop = new Laptop({
+                    model: args.model,
+                    url: args.url,
+                    description: args.description,
+                    price: args.price,
+                    author: args.author
+                });
+                return Laptop.create(laptop);
+            }
+        }
     }
 });
 
 module.exports = new GraphQLSchema({
-    query: RootQuery
+    query: RootQuery,
+    mutation: Mutation
 });

@@ -10,7 +10,8 @@ const laptopSchema = new Schema({
   },
   url: {
     type: Schema.Types.String,
-    required: true
+    required: true,
+    unique: true
   },
   description: {
     type: Schema.Types.String,

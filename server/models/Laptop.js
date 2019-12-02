@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const laptopSchema = new Schema({
-  name: {
+  model: {
     type: Schema.Types.String,
     required: true,
     unique: true,
@@ -16,7 +16,11 @@ const laptopSchema = new Schema({
     type: Schema.Types.String,
     required: true,
     minlength: 10
-  },   
+  },
+  price: {
+    type: Schema.Types.Decimal128,
+    required: true    
+  },
   author: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,

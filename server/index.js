@@ -1,7 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const graphqlHTTP = require('express-graphql');
 const cors = require('cors');
-
+const schema = require('./schema/schema');
 const authRoutes = require('./routes/auth');
 //const productsRoutes = require('./routes/products');
 
@@ -20,6 +21,11 @@ app.use((req, res, next) => {
 
 app.use('/auth', authRoutes);
 //app.use('/laptops', productsRoutes);
+
+app.use('/graphql', graphqlHTTP({
+  schema,
+  graphiql: true
+}));
 
 // General error handling
 app.use((error, req, res, next) => {

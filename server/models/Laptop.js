@@ -18,7 +18,7 @@ const laptopSchema = new Schema({
     minlength: 10
   },
   price: {
-    type: Schema.Types.Decimal128,
+    type: Schema.Types.Number,
     required: true    
   },
   author: {

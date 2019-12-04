@@ -7,53 +7,87 @@ chai.use(chaiHttp);
 chai.should();
  
 describe('Add Product', function() {    
-    it("should not create product", function(done) {
+    it("should return already exist", function(done) {
         this.timeout(100000);
         chai.request(app)
             .post('/laptops/add')
             .send({ 
                 "model": "Acer Aspire 5",
-	            "url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_mTQcfYB0-Q44UKTf4hzy2nzQEREmWFR3ph_VDe6lHQw_CcEnog&s",
+	            "url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQfL6rmBoQvcwVaFDqYO7l774jj42NnLsmRXYZaG46Zbbp4Gpjsgw&s",
 	            "description": "Acer Aspire 5aAcer Aspire 5aAcer Aspire 5a",
 	            "price": 1000.01           
             })
             .end((err, res) => {   
                 expect(err).to.be.null;
-                res.should.have.status(500);
-                expect(res.body.message).to.be.deep.equal('Product cannot be created!');
+                res.should.have.status(409);
+                expect(res.body.message).to.be.deep.equal('A product already exist!');
                 done();
             });
     });
-    it("should not create product", function(done) {
+    it("should return already exist", function(done) {
         this.timeout(100000);
         chai.request(app)
             .post('/laptops/add')
             .send({ 
                 "model": "Acer Aspire",
-	            "url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_mTQcfYB0-Q44UKTf4hzy2nzQEREmWFR3ph_VDe6lHQw_CcEnog&s",
+	            "url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQfL6rmBoQvcwVaFDqYO7l774jj42NnLsmRXYZaG46Zbbp4Gpjsgw&s",
 	            "description": "Acer Aspire 5aAcer Aspire 5aAcer Aspire 5a",
-	            "price": 1000.01           
+	            "price": 1000.01
             })
             .end((err, res) => {   
                 expect(err).to.be.null;
-                res.should.have.status(500);
-                expect(res.body.message).to.be.deep.equal('Product cannot be created!');
+                res.should.have.status(409);
+                expect(res.body.message).to.be.deep.equal('A product already exist!');
                 done();
             });
     });
-    it("should create product successfully", function(done) {
+    it("should return cannot be created", function(done) {
         this.timeout(100000);
         chai.request(app)
             .post('/laptops/add')
             .send({ 
-                "model": "Acer Aspire 5",
-	            "url": "http://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_mTQcfYB0-Q44UKTf4hzy2nzQEREmWFR3ph_VDe6lHQw_CcEnog&s",
+                "model": "Acer",
+	            "url": "https://laptop.png",
 	            "description": "Acer Aspire 5aAcer Aspire 5aAcer Aspire 5a",
 	            "price": 1000.01           
             })
             .end((err, res) => {   
                 expect(err).to.be.null;
-                res.should.have.status(500);
+                res.should.have.status(400);
+                expect(res.body.message).to.be.deep.equal('Product cannot be created!');
+                done();
+            });
+    });
+    it("should return cannot be created", function(done) {
+        this.timeout(100000);
+        chai.request(app)
+            .post('/laptops/add')
+            .send({ 
+                "model": "Acer Aspire 3",
+	            "url": "hhttps://laptop.png",
+	            "description": "Acer Aspire 5aAcer Aspire 5aAcer Aspire 5a",
+	            "price": 1000.01           
+            })
+            .end((err, res) => {   
+                expect(err).to.be.null;
+                res.should.have.status(400);
+                expect(res.body.message).to.be.deep.equal('Product cannot be created!');
+                done();
+            });
+    });
+    it("should return cannot be created", function(done) {
+        this.timeout(100000);
+        chai.request(app)
+            .post('/laptops/add')
+            .send({ 
+                "model": "Acer Aspire 1",
+	            "url": "hhttps://laptop.png",
+	            "description": "Acer",
+	            "price": 1000.01           
+            })
+            .end((err, res) => {   
+                expect(err).to.be.null;
+                res.should.have.status(400);
                 expect(res.body.message).to.be.deep.equal('Product cannot be created!');
                 done();
             });

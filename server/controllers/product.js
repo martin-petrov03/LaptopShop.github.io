@@ -22,7 +22,7 @@ const createNewProduct = async(req, res) => {
 
         if(!url.startsWith('http') || description.length < 10 || model.length < 5)
         {
-            res.status(500).json(
+            res.status(400).json(
             {
                 message: 'Product cannot be created!',
             });
@@ -48,6 +48,7 @@ const createNewProduct = async(req, res) => {
         }
     }
 }
+
 
 module.exports = {    
     createNewProduct,    

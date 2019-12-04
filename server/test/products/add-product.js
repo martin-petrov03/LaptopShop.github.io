@@ -92,4 +92,21 @@ describe('Add Product', function() {
                 done();
             });
     });
+    it("should return invalid price", function(done) {
+        this.timeout(100000);
+        chai.request(app)
+            .post('/laptops/add')
+            .send({ 
+                "model": "Acer Aspire 1",
+	            "url": "hhttps://laptop.png",
+	            "description": "Acer Aspire 1Acer Aspire 1Acer Aspire 1",
+	            "price": 0.001
+            })
+            .end((err, res) => {   
+                expect(err).to.be.null;
+                res.should.have.status(400);
+                expect(res.body.message).to.be.deep.equal('Price is invalid!');
+                done();
+            });
+    });
 });

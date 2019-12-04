@@ -27,14 +27,6 @@ app.use('/graphql', graphqlHTTP({
   graphiql: true
 }));
 
-// General error handling
-app.use((error, req, res, next) => {
-  const status = error.statusCode || 500;
-  const message = error.message;
-  res.status(status).json({ message: message });
-  next();
-})
-
 module.exports = app.listen(port, () => { 
   console.log(`REST API listening on port: ${port}`) 
 });

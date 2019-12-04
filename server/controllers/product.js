@@ -20,6 +20,14 @@ const createNewProduct = async(req, res) => {
         
         const { model, url, description, price } = req.body;
 
+        if(price < 0.01) {
+            res.status(400).json(
+            {
+                message: 'Price is invalid!',
+            });
+            return;
+        }
+
         if(!url.startsWith('http') || description.length < 10 || model.length < 5)
         {
             res.status(400).json(
@@ -48,9 +56,11 @@ const createNewProduct = async(req, res) => {
         }
     }
 }
+// console.log(req.headers.userid);
+// console.log(req.headers.token);
 
 
 module.exports = {    
     createNewProduct,    
-    // deleteProduct
+    //deleteProduct
 };

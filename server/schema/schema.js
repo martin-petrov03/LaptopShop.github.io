@@ -61,33 +61,6 @@ const RootQuery = new GraphQLObjectType({
     }
 });
 
-const Mutation = new GraphQLObjectType({
-    name: 'Mutation',
-    fields: {
-        addLaptop: {
-            type: LaptopType,
-            args: {
-                model: { type: new GraphQLNonNull(GraphQLString) },
-                url: { type: new GraphQLNonNull(GraphQLString) },
-                description: { type: new GraphQLNonNull(GraphQLString) },
-                price: { type: new GraphQLNonNull(GraphQLFloat) },
-                author: { type: new GraphQLNonNull(GraphQLID) }
-            },
-            resolve(parent, args) {
-                const laptop = new Laptop({
-                    model: args.model,
-                    url: args.url,
-                    description: args.description,
-                    price: args.price,
-                    author: args.author
-                });
-                return Laptop.create(laptop);
-            }
-        }
-    }
-});
-
 module.exports = new GraphQLSchema({
-    query: RootQuery,
-    mutation: Mutation
+    query: RootQuery    
 });

@@ -18,12 +18,7 @@ const userSchema = new Schema({
   hashedPassword: {
     type: Schema.Types.String,
     required: true
-  },
-  myLaptops: {
-    type: Schema.Types.Array,
-    required: true,
-    ref: 'Laptop'
-  },
+  },  
   salt: {
     type: Schema.Types.String,
     required: true

@@ -71,7 +71,7 @@ const signIn = (req, res) => {
           message: 'User successfully logged in!',
           token,
           username: user.username,
-          likedProductsIds: user.likedProductsIds,
+          myLaptops: user.myLaptops,          
           userId: user._id.toString()
         }
       );

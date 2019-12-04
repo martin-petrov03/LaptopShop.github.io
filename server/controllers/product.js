@@ -5,12 +5,13 @@ const isAuth = require('../middleware/is-auth');
 const createNewProduct = async(req, res) => {
     if(await isAuth(req, res)){
         //Check for duplication
-        const product = await Laptop.findOne({ name: req.body.model });
-        
-        if(product) {
+        const productWithSameModel = await Laptop.findOne({ model: req.body.model });
+        const productWithSameUrl = await Laptop.findOne({ url: req.body.url });
+
+        if(productWithSameModel || productWithSameUrl) {
             res.status(409).json(
             {
-                message: 'A product with this name already exist!',
+                message: 'A product already exist!',
             });
             return false;
         }
@@ -19,7 +20,7 @@ const createNewProduct = async(req, res) => {
         
         const { model, url, description, price } = req.body;
 
-        if(!url.startsWith('http'))
+        if(!url.startsWith('http') || description.length < 10 || model.length < 5)
         {
             res.status(500).json(
             {
@@ -31,7 +32,8 @@ const createNewProduct = async(req, res) => {
         const newProduct = { model, url, description, price, author: authorId };
 
         try{
-            await Laptop.create(newProduct)
+            await Laptop.create(newProduct)                        
+            
             res.status(200).json(
                 {
                     message: 'Product successfully created!'                  
@@ -46,39 +48,6 @@ const createNewProduct = async(req, res) => {
         }
     }
 }
-// console.log(req.headers.userid);
-// console.log(req.headers.token);
-
-
-// const deleteProduct = async(req, res) => {
-//     const productId = req.params.id;
-
-//     if(await isAuth(req, res)){
-//         Product.findById(productId).then(product => {
-//             if(product) {
-//                 Product.deleteOne({
-//                     _id: productId 
-//                 }).then(() => {
-//                     res.status(200).json(
-//                     {
-//                         message: 'Product has been successfully deleted!',
-//                     });
-//                 })
-//             }else {
-//                 res.status(500).json(
-//                 {
-//                     message: 'Cannot find the product!',
-//                 });                
-//             }
-//         })
-//         .catch(err => {
-//             res.status(500).json(
-//             {
-//                 message: 'Cannot find the product!',
-//             });
-//         });
-//     }
-// }
 
 module.exports = {    
     createNewProduct,    

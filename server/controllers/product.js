@@ -56,11 +56,41 @@ const createNewProduct = async(req, res) => {
         }
     }
 }
-// console.log(req.headers.userid);
-// console.log(req.headers.token);
 
+
+const deleteProduct = async(req, res) => {
+    const productId = req.params.id;
+
+    if(await isAuth(req, res)){
+        try {
+            const laptop = await Laptop.findById(productId);
+            
+            if(laptop) {
+                Laptop.deleteOne({
+                    _id: productId
+                }).then(() => {
+                    res.status(200).json(
+                    {
+                        message: 'Product has been successfully deleted!',
+                    });
+                })
+            }else {
+                res.status(400).json(
+                {
+                    message: 'Cannot find the product!',
+                });
+            }
+        }
+        catch(err) {
+            res.status(500).json(
+            {
+                message: 'Cannot find the product!',
+            });
+        }
+    }
+}
 
 module.exports = {    
     createNewProduct,    
-    //deleteProduct
+    deleteProduct
 };

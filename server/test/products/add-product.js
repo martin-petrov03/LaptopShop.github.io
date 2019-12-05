@@ -5,17 +5,37 @@ const app = require('../../index');
 
 chai.use(chaiHttp);
 chai.should();
+
+let token;
  
-describe('Add Product', function() {    
+describe('Add Product', function() {
+    beforeEach(function(done) {
+        this.timeout(100000);
+        chai.request(app)
+            .post('/auth/signin')
+            .send({ 
+                email: 'martin.petrov033@gmail.com',
+                password: '12345'                
+            })
+            .end((err, res) => {   
+                expect(err).to.be.null;
+                res.should.have.status(200);
+                expect(res.body.message).to.be.deep.equal('User successfully logged in!');
+                token = res.body.token;
+                done();
+            });
+    });
+
     it("should return already exist", function(done) {
         this.timeout(100000);
         chai.request(app)
             .post('/laptops/add')
+            .set('token', token)
             .send({ 
                 "model": "Acer Aspire 5",
 	            "url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQfL6rmBoQvcwVaFDqYO7l774jj42NnLsmRXYZaG46Zbbp4Gpjsgw&s",
 	            "description": "Acer Aspire 5aAcer Aspire 5aAcer Aspire 5a",
-	            "price": 1000.01           
+	            "price": 1000.01  
             })
             .end((err, res) => {   
                 expect(err).to.be.null;
@@ -28,6 +48,7 @@ describe('Add Product', function() {
         this.timeout(100000);
         chai.request(app)
             .post('/laptops/add')
+            .set('token', token)
             .send({ 
                 "model": "Acer Aspire",
 	            "url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQfL6rmBoQvcwVaFDqYO7l774jj42NnLsmRXYZaG46Zbbp4Gpjsgw&s",
@@ -45,6 +66,7 @@ describe('Add Product', function() {
         this.timeout(100000);
         chai.request(app)
             .post('/laptops/add')
+            .set('token', token)
             .send({ 
                 "model": "Acer",
 	            "url": "https://laptop.png",
@@ -62,6 +84,7 @@ describe('Add Product', function() {
         this.timeout(100000);
         chai.request(app)
             .post('/laptops/add')
+            .set('token', token)
             .send({ 
                 "model": "Acer Aspire 3",
 	            "url": "hhttps://laptop.png",
@@ -79,6 +102,7 @@ describe('Add Product', function() {
         this.timeout(100000);
         chai.request(app)
             .post('/laptops/add')
+            .set('token', token)
             .send({ 
                 "model": "Acer Aspire 1",
 	            "url": "hhttps://laptop.png",
@@ -96,6 +120,7 @@ describe('Add Product', function() {
         this.timeout(100000);
         chai.request(app)
             .post('/laptops/add')
+            .set('token', token)
             .send({ 
                 "model": "Acer Aspire 1",
 	            "url": "hhttps://laptop.png",

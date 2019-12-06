@@ -1,27 +1,26 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const laptopSchema = new Schema({
-  model: {
+const checkoutSchema = new Schema({
+  productName: {
     type: Schema.Types.String,
-    required: true,
-    unique: true,
+    required: true,    
     minlength: 5
   },
   url: {
     type: Schema.Types.String,
-    required: true,
-    unique: true
-  },
-  description: {
-    type: Schema.Types.String,
-    required: true,
-    minlength: 10
-  },
+    required: true    
+  },  
   price: {
     type: Schema.Types.Number,
     required: true,
-    min: 0.01  
+    min: 0.01 
+  },
+  quantity: {
+    type: Schema.Types.Number,
+    required: true,
+    max: 10,
+    min: 1
   },
   author: {
     type: mongoose.Schema.Types.ObjectId,
@@ -30,5 +29,5 @@ const laptopSchema = new Schema({
   }
 });
 
-const Laptop = mongoose.model('Laptop', laptopSchema);
-module.exports = Laptop;
+const Checkout = mongoose.model('Checkout', checkoutSchema);
+module.exports = Checkout;

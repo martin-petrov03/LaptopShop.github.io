@@ -1,5 +1,6 @@
 const User = require('../models/User');
 const Laptop = require('../models/Laptop');
+const Checkout = require('../models/Checkout');
 const isAuth = require('../middleware/is-auth');
 
 const createNewProduct = async(req, res) => {
@@ -90,7 +91,45 @@ const deleteProduct = async(req, res) => {
     }
 }
 
+const checkout = async(req, res) => {
+    if(await isAuth(req, res)){
+        try {
+            const { productName, quantity, author } = req.body;
+
+            if(productName.length >= 5 && Number.isInteger(quantity) && (quantity >= 1 && quantity <= 10))
+            {
+                const laptop = await Laptop.findOne({ model: productName });                
+                if(laptop) {
+                    await Checkout.create({ productName, url: laptop.url, price: laptop.price, quantity, author });
+                    res.status(200).json(
+                    {
+                        message: 'Checkout has been successfully created!',
+                    });
+                } else {
+                    res.status(400).json(
+                    {
+                        message: 'Invalid Product!',
+                    });
+                }
+            } else {
+                res.status(400).json(
+                {
+                    message: 'Invalid Data!',
+                });
+            }
+        }
+        catch(err) {
+            console.log(err);
+            res.status(400).json(
+            {
+                message: 'Cannot checkout!',
+            });
+        }
+    }
+}
+
 module.exports = {    
     createNewProduct,    
-    deleteProduct
+    deleteProduct,
+    checkout
 };

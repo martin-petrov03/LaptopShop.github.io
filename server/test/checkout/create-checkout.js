@@ -43,7 +43,6 @@ describe('Create Checkout', function() {
                 done();
             });
     });
-
     // it("should checkout correctly", function(done) {
     //     this.timeout(100000);
     //     chai.request(app)
@@ -61,7 +60,6 @@ describe('Create Checkout', function() {
     //             done();
     //         });
     // });
-
     it("should return invalid product", function(done) {
         this.timeout(100000);
         chai.request(app)
@@ -79,7 +77,6 @@ describe('Create Checkout', function() {
                 done();
             });
     });
-
     it("should return invalid product", function(done) {
         this.timeout(100000);
         chai.request(app)

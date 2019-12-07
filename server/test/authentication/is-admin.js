@@ -5,10 +5,10 @@ const app = require('../../index');
 
 chai.use(chaiHttp);
 chai.should();
- 
-let token;
 
-describe('Delete Product', function() {
+let token;
+let userId;
+describe('isAdmin', function() {
     beforeEach(function(done) {
         this.timeout(100000);
         chai.request(app)
@@ -17,39 +17,37 @@ describe('Delete Product', function() {
                 email: 'martin.petrov033@gmail.com',
                 password: '12345'                
             })
-            .end((err, res) => {
+            .end((err, res) => {   
                 expect(err).to.be.null;
                 res.should.have.status(200);
-                expect(res.body.message).to.be.deep.equal('User successfully logged in!');                
+                expect(res.body.message).to.be.deep.equal('User successfully logged in!');
                 token = res.body.token;
+                userId = res.body.userId;
                 done();
             });
     });
-
-    it("should return cannot find product", function(done) {
-        const productId = '1234';
+    it("should return not authorized", function(done) {        
         this.timeout(100000);
         chai.request(app)
-            .post(`/laptops/delete/${productId}`)
-            .set('token', token)
-            .end((err, res) => {
-                expect(err).to.be.null;
-                res.should.have.status(500);
-                expect(res.body.message).to.be.deep.equal('Cannot find the product!');
-                done();
-            });
-    });
-    it("should return cannot find product", function(done) {
-        const productId = '5de91e69db08113a34925d00';
-        this.timeout(100000);
-        chai.request(app)
-            .post(`/laptops/delete/${productId}`)
-            .set('token', token)
+            .get('/laptops/checkouts/all')
             .end((err, res) => {
                 expect(err).to.be.null;
                 res.should.have.status(400);
-                expect(res.body.message).to.be.deep.equal('Cannot find the product!');
+                expect(res.body.message).to.be.deep.equal('Not Authorized!');
                 done();
             });
     });
+    it("should return admin", function(done) {        
+        this.timeout(100000);
+        chai.request(app)
+            .get('/laptops/checkouts/all')
+            .set('token', token)
+            .set('userId', userId)      
+            .end((err, res) => {
+                expect(err).to.be.null;
+                res.should.have.status(200);
+                expect(res.body.message).to.be.deep.equal('Admin!');
+                done();
+            });
+    });    
 });

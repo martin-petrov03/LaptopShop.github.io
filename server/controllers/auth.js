@@ -16,7 +16,7 @@ const signUp = (req, res) => {
   const salt = encryption.generateSalt();
   const hashedPassword = encryption.generateHashedPassword(salt, password);
 
-  User.findOne({ email }).then(user => {
+  User.findOne({ email }).then(user => {    
     if (user) {
       res.status(409)
         .json({ message: 'E-Mail address already exists!' });

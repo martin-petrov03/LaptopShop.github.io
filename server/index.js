@@ -5,6 +5,7 @@ const cors = require('cors');
 const schema = require('./schema/schema');
 const authRoutes = require('./routes/auth');
 const productsRoutes = require('./routes/products');
+const checkoutsRoutes = require('./routes/checkout');
 
 require('./database/database')();
 const port = 3001;
@@ -21,6 +22,7 @@ app.use((req, res, next) => {
 
 app.use('/auth', authRoutes);
 app.use('/laptops', productsRoutes);
+app.use('/checkouts', checkoutsRoutes);
 
 app.use('/graphql', graphqlHTTP({
   schema,

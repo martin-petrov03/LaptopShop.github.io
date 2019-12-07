@@ -1,5 +1,7 @@
 const Laptop = require('../models/Laptop');
+const User = require('../models/User');
 const isAuth = require('../middleware/is-auth');
+const isAdmin = require('../middleware/is-admin');
 
 const createNewProduct = async(req, res) => {
     if(await isAuth(req, res)){
@@ -58,12 +60,13 @@ const createNewProduct = async(req, res) => {
 
 const deleteProduct = async(req, res) => {
     const productId = req.params.id;
+    const userId = req.headers.userid; 
 
     if(await isAuth(req, res)){
         try {
-            const laptop = await Laptop.findById(productId);
+            const laptop = await Laptop.findById(productId);            
             
-            if(laptop) {
+            if(laptop && (laptop.author == userId || await isAdmin(req, res))) {
                 Laptop.deleteOne({
                     _id: productId
                 }).then(() => {
@@ -72,6 +75,11 @@ const deleteProduct = async(req, res) => {
                         message: 'Product has been successfully deleted!',
                     });
                 })
+            } else if(laptop.author !== userId) {
+                res.status(400).json(
+                {
+                    message: 'Cannot delete the product!',
+                });
             }else {
                 res.status(400).json(
                 {
@@ -82,7 +90,7 @@ const deleteProduct = async(req, res) => {
         catch(err) {
             res.status(500).json(
             {
-                message: 'Cannot find the product!',
+                message: 'Cannot delete the product!',
             });
         }
     }

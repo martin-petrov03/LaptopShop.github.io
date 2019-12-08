@@ -27,7 +27,7 @@ describe('Delete Checkout', function() {
                 done();
             });
     });
-    it("should return all checkouts", function(done) {
+    it("should return cannot find the checkout", function(done) {
         this.timeout(100000);
         chai.request(app)
             .delete('/checkouts/complete/1234')
@@ -39,6 +39,5 @@ describe('Delete Checkout', function() {
                 expect(res.body.message).to.be.deep.equal('Cannot find the checkout!');             
                 done();
             });
-    });
-    // S
+    });    
 });

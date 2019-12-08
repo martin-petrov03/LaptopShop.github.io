@@ -1,8 +1,23 @@
 const jwt = require('jsonwebtoken');
+const User = require('../models/User');
 
-function auth(req, res) {  
+async function auth(req, res) {  
   const token = req.headers.token;
-  
+  const userId = req.headers.userid;
+
+  try {
+    const user = await User.findById(userId);
+    if(!user) {
+      res.status(400)
+        .json({ message: 'Invalid userId!' });
+      return false;
+    }
+  } catch(error) {
+    res.status(400)
+      .json({ message: 'Invalid userId!' });
+    return false;
+  }
+
   if (!token) {
     res.status(401)
       .json({ message: 'Not authenticated!' });

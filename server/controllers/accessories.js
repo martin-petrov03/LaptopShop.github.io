@@ -29,14 +29,24 @@ const createNewAccessory = async(req, res) => {
             return;
         }
 
-        if((!url.startsWith('http') || description.length < 10 || title.length < 5) && authorId)
-        {
+        let isValid = true;
+        if(!url.startsWith('http')) {
+            isValid = false;
+        } else if(description.length < 10) {
+            isValid = false;
+        } else if(title.length < 5) {
+            isValid = false;
+        } else if(!authorId){
+            isValid = false;
+        }
+
+        if(!isValid) {
             res.status(400).json(
             {
-                message: 'Product cannot be created!',
+                message: 'Invalid data!',
             });
             return;
-        }
+        }                        
 
         const newProduct = { title, url, description, price, author: authorId };
 
@@ -45,7 +55,7 @@ const createNewAccessory = async(req, res) => {
             
             res.status(200).json(
                 {
-                    message: 'Product successfully created!'                  
+                    message: 'Product successfully created!'
                 }
             );
         }

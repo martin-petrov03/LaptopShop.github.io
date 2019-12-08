@@ -6,7 +6,7 @@ async function isAdmin(req, res) {
   try {
     const user = await User.findById(userId);
     if(user) {
-        if(user.roles.includes('Admin')) {            
+        if(user.roles.includes('Admin')) {
             return true;
         }
     }

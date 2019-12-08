@@ -77,8 +77,7 @@ const completeCheckout = async(req, res) => {
             
             if(!checkout) {
                 res.status(400)
-                    .json({ message: 'Cannot find the checkout!' });
-                return;
+                    .json({ message: 'Cannot find the checkout!' });                
                 return;
             }
             checkout.remove();
@@ -87,8 +86,8 @@ const completeCheckout = async(req, res) => {
             return;
         }
         catch{
-            res.status(500)
-                .json({ message: 'Cannot complete the checkout!' });
+            res.status(400)
+                .json({ message: 'Cannot find the checkout!' });                
             return;
         }
     }

@@ -6,3 +6,4 @@ const addProduct = require('./products/add-product');
 const deleteProduct = require('./products/delete-product');
 const createCheckout = require('./checkout/create-checkout');
 const getCheckout = require('./checkout/get-checkouts');
+const deleteCheckout = require('./checkout/delete-checkout');

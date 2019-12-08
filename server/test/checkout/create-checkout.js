@@ -31,6 +31,7 @@ describe('Create Checkout', function() {
         chai.request(app)
             .post('/checkouts/add')
             .set('token', token)
+            .set('userId', userId)
             .send({
                 "productName": "Acer Aspire 5",                
                 "quantity": 5.5,
@@ -48,6 +49,7 @@ describe('Create Checkout', function() {
     //     chai.request(app)
     //         .post('/checkouts/add')
     //         .set('token', token)
+    //         .set('userId', userId)
     //         .send({
     //             "productName": "Acer Aspire 5",
     //             "quantity": 5,
@@ -65,6 +67,7 @@ describe('Create Checkout', function() {
         chai.request(app)
             .post('/checkouts/add')
             .set('token', token)
+            .set('userId', userId)
             .send({
                 "productName": "Acer Aspire",                
                 "quantity": 5,
@@ -82,6 +85,7 @@ describe('Create Checkout', function() {
         chai.request(app)
             .post('/checkouts/add')
             .set('token', token)
+            .set('userId', userId)
             .send({
                 "productName": "Acer Aspire",                
                 "quantity": 0,

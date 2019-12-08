@@ -36,8 +36,6 @@ const createNewAccessory = async(req, res) => {
             isValid = false;
         } else if(title.length < 5) {
             isValid = false;
-        } else if(!authorId){
-            isValid = false;
         }
 
         if(!isValid) {
@@ -86,21 +84,16 @@ const deleteAccessory = async(req, res) => {
                     });
                 })
             } else if(accessory.author !== userId) {
-                res.status(400).json(
+                res.status(401).json(
                 {
-                    message: 'Cannot delete the product!',
-                });
-            }else {
-                res.status(400).json(
-                {
-                    message: 'Cannot find the product!',
+                    message: 'Not Authorized to delete the product!',
                 });
             }
         }
         catch(err) {
-            res.status(500).json(
+            res.status(400).json(
             {
-                message: 'Cannot delete the product!',
+                message: 'Cannot find the product!',
             });
         }
     }

@@ -32,6 +32,7 @@ describe('Add Accessory', function() {
         chai.request(app)
             .post('/accessories/add')
             .set('token', token)
+            .set('userId', userId)
             .send({ 
                 "title": "mouse",
 	            "url": "https://gaming-mouse.png",
@@ -50,6 +51,7 @@ describe('Add Accessory', function() {
         chai.request(app)
             .post('/accessories/add')
             .set('token', token)
+            .set('userId', userId)
             .send({ 
                 "title": "gaming mouse",
 	            "url": "https://mouse.png",
@@ -68,6 +70,7 @@ describe('Add Accessory', function() {
         chai.request(app)
             .post('/accessories/add')
             .set('token', token)
+            .set('userId', userId)
             .send({ 
                 "title": "gaming mouse",
 	            "url": "https://gaming-mouse.png",
@@ -105,6 +108,7 @@ describe('Add Accessory', function() {
         chai.request(app)
             .post('/accessories/add')
             .set('token', token)
+            .set('userId', userId)
             .send({ 
                 "title": "gaming mouse",
 	            "url": "gaming-mouse.png",
@@ -117,23 +121,5 @@ describe('Add Accessory', function() {
                 expect(res.body.message).to.be.deep.equal('Invalid data!');
                 done();
             });
-    });
-    it("should return invalid data", function(done) {
-        this.timeout(100000);
-        chai.request(app)
-            .post('/accessories/add')
-            .set('token', token)            
-            .send({ 
-                "title": "gaming mouse",
-	            "url": "https://gaming-mouse.png",
-	            "description": "Gaming Mouse",
-	            "price": 799.99
-            })
-            .end((err, res) => {   
-                expect(err).to.be.null;
-                res.should.have.status(400);
-                expect(res.body.message).to.be.deep.equal('Invalid data!');
-                done();
-            });
-    });
+    });    
 });

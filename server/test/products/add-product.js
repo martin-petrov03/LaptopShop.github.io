@@ -32,6 +32,7 @@ describe('Add Product', function() {
         chai.request(app)
             .post('/laptops/add')
             .set('token', token)
+            .set('userId', userId)
             .send({ 
                 "model": "Acer Aspire 5",
 	            "url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQfL6rmBoQvcwVaFDqYO7l774jj42NnLsmRXYZaG46Zbbp4Gpjsgw&s",
@@ -50,6 +51,7 @@ describe('Add Product', function() {
         chai.request(app)
             .post('/laptops/add')
             .set('token', token)
+            .set('userId', userId)
             .send({ 
                 "model": "Acer Aspire",
 	            "url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQfL6rmBoQvcwVaFDqYO7l774jj42NnLsmRXYZaG46Zbbp4Gpjsgw&s",
@@ -78,7 +80,7 @@ describe('Add Product', function() {
             .end((err, res) => {   
                 expect(err).to.be.null;
                 res.should.have.status(400);
-                expect(res.body.message).to.be.deep.equal('Product cannot be created!');
+                expect(res.body.message).to.be.deep.equal('Invalid data!');
                 done();
             });
     });
@@ -87,6 +89,7 @@ describe('Add Product', function() {
         chai.request(app)
             .post('/laptops/add')
             .set('token', token)
+            .set('userId', userId)
             .send({ 
                 "model": "Acer Aspire 3",
 	            "url": "hhttps://laptop.png",
@@ -95,8 +98,8 @@ describe('Add Product', function() {
             })
             .end((err, res) => {   
                 expect(err).to.be.null;
-                res.should.have.status(500);
-                expect(res.body.message).to.be.deep.equal('Product cannot be created!');
+                res.should.have.status(400);
+                expect(res.body.message).to.be.deep.equal('Invalid data!');
                 done();
             });
     });
@@ -105,16 +108,17 @@ describe('Add Product', function() {
         chai.request(app)
             .post('/laptops/add')
             .set('token', token)
+            .set('userId', userId)
             .send({ 
                 "model": "Acer Aspire 1",
-	            "url": "hhttps://laptop.png",
+	            "url": "https://laptop.png",
 	            "description": "Acer",
 	            "price": 1000.01           
             })
             .end((err, res) => {   
                 expect(err).to.be.null;
-                res.should.have.status(500);
-                expect(res.body.message).to.be.deep.equal('Product cannot be created!');
+                res.should.have.status(400);
+                expect(res.body.message).to.be.deep.equal('Invalid data!');
                 done();
             });
     });
@@ -123,6 +127,7 @@ describe('Add Product', function() {
         chai.request(app)
             .post('/laptops/add')
             .set('token', token)
+            .set('userId', userId)
             .send({ 
                 "model": "Acer Aspire 1",
 	            "url": "hhttps://laptop.png",

@@ -39,5 +39,19 @@ describe('Delete Checkout', function() {
                 expect(res.body.message).to.be.deep.equal('Cannot find the checkout!');             
                 done();
             });
-    });    
+    });
+    // it("should return cannot find the checkout", function(done) {
+    //     const productId = '5decfe0346d6963a9c8786e3';
+    //     this.timeout(100000);
+    //     chai.request(app)
+    //         .delete(`/checkouts/complete/${productId}`)
+    //         .set('token', token)
+    //         .set('userId', userId)
+    //         .end((err, res) => {
+    //             expect(err).to.be.null;
+    //             res.should.have.status(200);
+    //             expect(res.body.message).to.be.deep.equal('Checkout deleted successfully!');             
+    //             done();
+    //         });
+    // });
 });

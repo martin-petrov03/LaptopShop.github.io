@@ -7,7 +7,7 @@ chai.use(chaiHttp);
 chai.should();
 
 let token;
- 
+let userId;
 describe('Add Product', function() {
     beforeEach(function(done) {
         this.timeout(100000);
@@ -22,6 +22,7 @@ describe('Add Product', function() {
                 res.should.have.status(200);
                 expect(res.body.message).to.be.deep.equal('User successfully logged in!');
                 token = res.body.token;
+                userId = res.body.userId;                
                 done();
             });
     });
@@ -67,6 +68,7 @@ describe('Add Product', function() {
         chai.request(app)
             .post('/laptops/add')
             .set('token', token)
+            .set('userId', userId)
             .send({ 
                 "model": "Acer",
 	            "url": "https://laptop.png",
@@ -93,7 +95,7 @@ describe('Add Product', function() {
             })
             .end((err, res) => {   
                 expect(err).to.be.null;
-                res.should.have.status(400);
+                res.should.have.status(500);
                 expect(res.body.message).to.be.deep.equal('Product cannot be created!');
                 done();
             });
@@ -111,7 +113,7 @@ describe('Add Product', function() {
             })
             .end((err, res) => {   
                 expect(err).to.be.null;
-                res.should.have.status(400);
+                res.should.have.status(500);
                 expect(res.body.message).to.be.deep.equal('Product cannot be created!');
                 done();
             });

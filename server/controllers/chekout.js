@@ -1,4 +1,5 @@
 const Laptop = require('../models/Laptop');
+const Accessory = require('../models/Accessory');
 const Checkout = require('../models/Checkout');
 const isAuth = require('../middleware/is-auth');
 const isAdmin = require('../middleware/is-admin');
@@ -6,18 +7,27 @@ const isAdmin = require('../middleware/is-admin');
 const createCheckout = async(req, res) => {
     if(await isAuth(req, res)){
         try {
-            const { productName, quantity, author } = req.body;
+            const userId = req.headers.userid;
+            const { productName, quantity } = req.body;
 
             if(productName.length >= 5 && Number.isInteger(quantity) && (quantity >= 1 && quantity <= 10))
             {
-                const laptop = await Laptop.findOne({ model: productName });                
+                const laptop = await Laptop.findOne({ model: productName });
+                const accessory = await Accessory.findOne({ title: productName });
+
                 if(laptop) {
-                    await Checkout.create({ productName, url: laptop.url, price: laptop.price, quantity, author });
+                    await Checkout.create({ productName, url: laptop.url, price: laptop.price, quantity, author: userId });
                     res.status(200).json(
                     {
                         message: 'Checkout has been successfully created!',
                     });
-                } else {
+                } else if(accessory) {
+                    await Checkout.create({ productName, url: accessory.url, price: accessory.price, quantity, author: userId });
+                    res.status(200).json(
+                    {
+                        message: 'Checkout has been successfully created!',
+                    });
+                }else {
                     res.status(400).json(
                     {
                         message: 'Invalid Product!',

@@ -1,15 +1,15 @@
 const Laptop = require('../models/Laptop');
-const User = require('../models/User');
+const Accessory = require('../models/Accessory');
 const isAuth = require('../middleware/is-auth');
 const isAdmin = require('../middleware/is-admin');
 
-const createNewProduct = async(req, res) => {
+const createNewAccessory = async(req, res) => {
     if(await isAuth(req, res)){
         //Check for duplication
-        const productWithSameModel = await Laptop.findOne({ model: req.body.model });
-        const productWithSameUrl = await Laptop.findOne({ url: req.body.url });
+        const accessoryWithSameTitle = await Accessory.findOne({ title: req.body.title });
+        const accessoryWithSameUrl = await Accessory.findOne({ url: req.body.url });
 
-        if(productWithSameModel || productWithSameUrl) {
+        if(accessoryWithSameTitle || accessoryWithSameUrl) {
             res.status(409).json(
             {
                 message: 'A product already exist!',
@@ -19,7 +19,7 @@ const createNewProduct = async(req, res) => {
         
         const authorId = req.headers.userid;
         
-        const { model, url, description, price } = req.body;
+        const { title, url, description, price } = req.body;
 
         if(price < 0.01) {
             res.status(400).json(
@@ -29,7 +29,7 @@ const createNewProduct = async(req, res) => {
             return;
         }
 
-        if((!url.startsWith('http') || description.length < 10 || model.length < 5) && authorId)
+        if((!url.startsWith('http') || description.length < 10 || title.length < 5) && authorId)
         {
             res.status(400).json(
             {
@@ -38,10 +38,10 @@ const createNewProduct = async(req, res) => {
             return;
         }
 
-        const newProduct = { model, url, description, price, author: authorId };
+        const newProduct = { title, url, description, price, author: authorId };
 
         try{
-            await Laptop.create(newProduct)                        
+            await Accessory.create(newProduct)                        
             
             res.status(200).json(
                 {
@@ -58,16 +58,16 @@ const createNewProduct = async(req, res) => {
     }
 }
 
-const deleteProduct = async(req, res) => {
+const deleteAccessory = async(req, res) => {
     const productId = req.params.id;
-    const userId = req.headers.userid; 
+    const userId = req.headers.userid;
 
     if(await isAuth(req, res)){
         try {
-            const laptop = await Laptop.findById(productId);            
+            const accessory = await Accessory.findById(productId);
             
-            if(laptop && (laptop.author == userId || await isAdmin(req, res))) {
-                Laptop.deleteOne({
+            if(accessory && (accessory.author == userId || await isAdmin(req, res))) {
+                Accessory.deleteOne({
                     _id: productId
                 }).then(() => {
                     res.status(200).json(
@@ -75,7 +75,7 @@ const deleteProduct = async(req, res) => {
                         message: 'Product has been successfully deleted!',
                     });
                 })
-            } else if(laptop.author !== userId) {
+            } else if(accessory.author !== userId) {
                 res.status(400).json(
                 {
                     message: 'Cannot delete the product!',
@@ -97,6 +97,6 @@ const deleteProduct = async(req, res) => {
 }
 
 module.exports = {    
-    createNewProduct,    
-    deleteProduct    
+    createNewAccessory,    
+    deleteAccessory
 };

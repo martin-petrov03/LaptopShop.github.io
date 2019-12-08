@@ -26,16 +26,15 @@ describe('Delete Product', function() {
             });
     });
 
-    it("should return cannot find product", function(done) {
-        const productId = '1234';
+    it("should return cannot find product", function(done) {        
         this.timeout(100000);
         chai.request(app)
-            .post(`/laptops/delete/${productId}`)
+            .delete(`/laptops/delete/1234`)
             .set('token', token)
             .end((err, res) => {
                 expect(err).to.be.null;
                 res.should.have.status(500);
-                expect(res.body.message).to.be.deep.equal('Cannot find the product!');
+                expect(res.body.message).to.be.deep.equal('Cannot delete the product!');
                 done();
             });
     });
@@ -43,12 +42,12 @@ describe('Delete Product', function() {
         const productId = '5de91e69db08113a34925d00';
         this.timeout(100000);
         chai.request(app)
-            .post(`/laptops/delete/${productId}`)
+            .delete(`/laptops/delete/${productId}`)
             .set('token', token)
             .end((err, res) => {
                 expect(err).to.be.null;
-                res.should.have.status(400);
-                expect(res.body.message).to.be.deep.equal('Cannot find the product!');
+                res.should.have.status(500);
+                expect(res.body.message).to.be.deep.equal('Cannot delete the product!');
                 done();
             });
     });

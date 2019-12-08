@@ -26,10 +26,10 @@ describe('isAdmin', function() {
                 done();
             });
     });
-    it("should return not authorized", function(done) {        
+    it("should return not authorized", function(done) {
         this.timeout(100000);
         chai.request(app)
-            .get('/laptops/checkouts/all')
+            .get('/checkouts/all')
             .end((err, res) => {
                 expect(err).to.be.null;
                 res.should.have.status(400);
@@ -40,7 +40,7 @@ describe('isAdmin', function() {
     it("should return admin", function(done) {        
         this.timeout(100000);
         chai.request(app)
-            .get('/laptops/checkouts/all')
+            .get('/checkouts/all')
             .set('token', token)
             .set('userId', userId)      
             .end((err, res) => {

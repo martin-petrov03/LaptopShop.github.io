@@ -1,6 +1,7 @@
 const graphql = require('graphql');
 const { GraphQLObjectType, GraphQLString, GraphQLSchema, GraphQLID, GraphQLFloat, GraphQLList, GraphQLNonNull } = graphql;
 const Laptop = require('../models/Laptop');
+const Accessory = require('../models/Accessory');
 const User = require('../models/User');
 
 const LaptopType = new GraphQLObjectType({
@@ -35,6 +36,23 @@ const AuthorType = new GraphQLObjectType({
     })
 });
 
+const accessoryType = new GraphQLObjectType({
+    name: 'Accessory',
+    fields: () => ({
+        id: { type: GraphQLID },
+        title: { type: GraphQLString },
+        url: { type: GraphQLString },
+        description: { type: GraphQLString },
+        price: { type: GraphQLFloat },
+        author: {
+            type: AuthorType,
+            resolve(parent, args) {                
+                return User.findById(parent.authorId);
+            }
+        }
+    })
+});
+
 const RootQuery = new GraphQLObjectType({
     name: 'RootQueryType',
     fields: {
@@ -43,6 +61,13 @@ const RootQuery = new GraphQLObjectType({
             args: {id: {type: GraphQLID}},
             resolve(parent, args) {                
                 return Laptop.findById(args.id);
+            }
+        },
+        accessory: {
+            type: accessoryType,
+            args: {id: {type: GraphQLID}},
+            resolve(parent, args) {
+                return Accessory.findById(args.id);
             }
         },
         author: {
@@ -56,6 +81,12 @@ const RootQuery = new GraphQLObjectType({
             type: new GraphQLList(LaptopType),
             resolve(parent, args) {
                 return Laptop.find();
+            }
+        },
+        accessories: {
+            type: new GraphQLList(accessoryType),
+            resolve(parent, args) {
+                return Accessory.find();
             }
         }
     }

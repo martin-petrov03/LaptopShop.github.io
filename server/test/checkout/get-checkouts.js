@@ -30,7 +30,7 @@ describe('Get Checkout', function() {
     it("should return all checkouts", function(done) {
         this.timeout(100000);
         chai.request(app)
-            .get('/laptops/checkouts/all')
+            .get('/checkouts/all')
             .set('token', token)
             .set('userId', userId)
             .end((err, res) => {

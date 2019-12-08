@@ -28,7 +28,7 @@ describe('isAuth', function() {
     it("should return not authenticated", function(done) {
         this.timeout(100000);
         chai.request(app)
-            .post('/laptops/checkout')            
+            .post('/checkouts/add')            
             .send({
                 "productName": "Acer Aspire 5",                
                 "quantity": 5.5,
@@ -44,7 +44,7 @@ describe('isAuth', function() {
     it("should return invalid data", function(done) {
         this.timeout(100000);
         chai.request(app)
-            .post('/laptops/checkout')
+            .post('/checkouts/add')
             .set('token', '1234')
             .send({
                 "productName": "Acer Aspire 5",                
@@ -61,7 +61,7 @@ describe('isAuth', function() {
     it("should return invalid data", function(done) {        
         this.timeout(100000);
         chai.request(app)
-            .post('/laptops/checkout')
+            .post('/checkouts/add')
             .set('token', token)
             .send({
                 "productName": "Acer Aspire 5",          

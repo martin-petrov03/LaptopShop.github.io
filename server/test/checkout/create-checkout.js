@@ -29,7 +29,7 @@ describe('Create Checkout', function() {
     it("should return invalid data", function(done) {
         this.timeout(100000);
         chai.request(app)
-            .post('/laptops/checkout')
+            .post('/checkouts/add')
             .set('token', token)
             .send({
                 "productName": "Acer Aspire 5",                
@@ -46,7 +46,7 @@ describe('Create Checkout', function() {
     // it("should checkout correctly", function(done) {
     //     this.timeout(100000);
     //     chai.request(app)
-    //         .post('/laptops/checkout')
+    //         .post('/checkouts/add')
     //         .set('token', token)
     //         .send({
     //             "productName": "Acer Aspire 5",
@@ -63,7 +63,7 @@ describe('Create Checkout', function() {
     it("should return invalid product", function(done) {
         this.timeout(100000);
         chai.request(app)
-            .post('/laptops/checkout')
+            .post('/checkouts/add')
             .set('token', token)
             .send({
                 "productName": "Acer Aspire",                
@@ -80,7 +80,7 @@ describe('Create Checkout', function() {
     it("should return invalid product", function(done) {
         this.timeout(100000);
         chai.request(app)
-            .post('/laptops/checkout')
+            .post('/checkouts/add')
             .set('token', token)
             .send({
                 "productName": "Acer Aspire",                

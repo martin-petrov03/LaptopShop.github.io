@@ -1,0 +1,84 @@
+.nav {
+  display: flex;
+  align-items: space-between;
+  width: 100%;
+  max-height: 4.6em;
+  padding: 1em 0;
+  margin: 0;
+  overflow: hidden;
+}
+
+.site-logo {
+  text-decoration: none;
+  font-size: 2em;  
+  margin-left: 2em;
+  align-content: flex-start;  
+  color: #000;
+}
+
+.nav .menu-icon {
+  display: none;
+}
+
+.nav ul{
+  display: flex;
+  justify-content: space-between;
+  list-style: none;
+  margin: 0.6em 0;
+  margin-left: auto;
+}
+
+.nav ul li a {
+  font-size: 1.2em;
+  text-decoration: none;
+  color: rgb(0, 0, 0);
+  padding: 1em;
+}
+  
+.nav ul li a:hover {    
+    background-color: #d8d8d8;    
+    border: 0;
+    padding: 1em;
+}
+
+@media only screen and (max-width: 1050px) {  
+  .site-logo {
+    font-size: 1.5em;
+  }
+
+  .nav ul {
+    margin: 0.4em 0;
+    margin-left: auto;
+  }
+
+  .nav ul li a {
+    font-size: 1em;
+  }
+}
+
+@media only screen and (max-width: 900px) {  
+  .nav .menu-icon {
+    display: block;
+    font-size: 2em;
+    margin: 0.2em 0;
+    margin-left: auto;
+    padding: 0 1em;
+  }
+
+  .nav ul {
+    display: none;
+  }
+
+  .menu-icon:hover .nav ul{
+    display: block;
+    position: absolute;
+    width: 100%;
+    background: rgb(226, 226, 226);
+  }
+}
+
+@media only screen and (max-width: 511px) {  
+  .site-logo {
+    margin-left: 1.5em;
+  }
+}

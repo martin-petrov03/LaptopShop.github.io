@@ -12,11 +12,14 @@ const getLaptopsQuery = gql`
     }
 `;
 
-const getAuthorsQuery = gql`
+const getAccessoriesQuery = gql`
     {
-        authors {
-            name
+        accessories {
             id
+            title
+            url
+            description
+            price
         }
     }
 `;
@@ -50,7 +53,7 @@ const getBookQuery = gql`
 
 export {
     getLaptopsQuery,
-    getAuthorsQuery,
+    getAccessoriesQuery,
     addBookMutation,
     getBookQuery
 };

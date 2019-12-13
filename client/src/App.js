@@ -8,10 +8,11 @@ import Register from './components/Register/Register';
 // import Error from './pages/Error';
 // import AddProduct from './pages/AddProduct';
 import Navbar from "./components/Navbar/Navbar";
+import Accessories from './components/Accessories/Accessories';
 
 //apollo setup
 const client = new ApolloClient({
-  uri: 'http://localhost:3001/graphql/laptops',
+  uri: 'http://localhost:3001/graphql',
 })
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
       <Navbar />
       <Switch>
         <Route exact path="/" component={Laptops} />
+        <Route exact path="/accessories" component={Accessories} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/register" component={Register} />
         {/* <Route exact path="/product/add" component={AddProduct} /> */}

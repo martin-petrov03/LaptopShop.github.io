@@ -1,15 +1,16 @@
 .laptops-container {
-    display: flex;    
-    width: 100%;
+    display: flex;
+    justify-content: space-between;  
+    width: 100vw;
+    margin-top: 3em;
 }
 
 .laptops-container .laptop {
     margin: 0 auto;
-    margin-top: 2em;    
-    width: 30%;        
+    width: 20%;        
 }
 
 .laptop img {
-    width: 20em;
-    height: auto;
+    width: auto;
+    height: 10em;
 }

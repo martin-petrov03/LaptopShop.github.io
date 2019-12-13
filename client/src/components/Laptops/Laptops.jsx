@@ -1,5 +1,4 @@
 import React from 'react';
-import { FaSpinner } from "react-icons/fa";
 import { graphql } from 'react-apollo';
 import Laptop from './Laptop';
 import './index.css';

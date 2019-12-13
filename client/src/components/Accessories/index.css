@@ -1,0 +1,16 @@
+.accessories-container {
+    margin-top: 3em;    
+    display: flex;
+    justify-content: space-between;
+    width: 100vw;    
+}
+
+.accessories-container .accessory {
+    margin: 0 auto;       
+    width: 20%;
+}
+
+.accessory img {
+    width: auto;
+    height: 10em;
+}

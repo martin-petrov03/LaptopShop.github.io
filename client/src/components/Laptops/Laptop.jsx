@@ -10,7 +10,7 @@ const Laptop = (props) => {
         } else {
             return data.laptops.map(laptop => {
                 return (
-                    <section className="laptop">
+                    <section className="laptop" key={laptop.id}>
                         <h1>{laptop.model}</h1>
                         <img src={laptop.url} alt={laptop.model} />
                         <p>{laptop.description}</p>

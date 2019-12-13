@@ -6,17 +6,6 @@ import './index.css';
 import { getLaptopsQuery } from '../../queries/queries';
 
 const Laptops = (props) => {
-    const displayLaptops = () => {
-        const data = props.data;
-        if(data.loading) {
-            return (<FaSpinner />);
-        } else {
-            return data.laptops.map(laptop => {
-                return <li key={laptop.id}>{laptop.model}</li>;
-            });
-        }
-    }
-
     return (
         <main className="laptops-container">            
             {                                  

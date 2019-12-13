@@ -9,22 +9,20 @@ const Laptop = (props) => {
             return (<FaSpinner />);
         } else {
             return data.laptops.map(laptop => {
-                return <div className="laptop-container">
-                    <h1>{laptop.model}</h1>
-                    <img src={laptop.url} alt={laptop.model} />
-                    <p>{laptop.description}</p>
-                    <h2>{laptop.price}</h2>
-                </div>;
+                return (
+                    <section className="laptop">
+                        <h1>{laptop.model}</h1>
+                        <img src={laptop.url} alt={laptop.model} />
+                        <p>{laptop.description}</p>
+                        <h2>{laptop.price}</h2>
+                    </section>
+                );
             });
         }
     }
 
-    return (
-        <section className="laptop">            
-            {                               
-                displayLaptops()
-            }       
-        </section>
+    return (        
+        displayLaptops()        
     );    
 }
 

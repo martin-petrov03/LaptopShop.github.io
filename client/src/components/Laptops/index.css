@@ -1,12 +1,12 @@
-.laptops-container {    
-    margin-top: 2em;
+.laptops-container {
+    display: flex;    
+    width: 100%;
 }
 
-.laptop {
-    display: flex;    
-    align-items: flex-start;
-    width: 45%;
+.laptops-container .laptop {
     margin: 0 auto;
+    margin-top: 2em;    
+    width: 30%;        
 }
 
 .laptop img {

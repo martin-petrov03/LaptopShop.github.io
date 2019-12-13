@@ -1,0 +1,32 @@
+.registration-container {
+    position: absolute;
+    left: 0; 
+    right: 0;
+    top: 7em;
+    margin-left: auto;
+    margin-right: auto;    
+}
+
+.registration-container h1 {
+    text-align: center;
+}
+
+.register-form {        
+    text-align: center;
+    margin-top: 2em;
+}
+
+
+.register-form label {
+    display: block;
+}
+
+.register-form .submit-btn {
+    border-radius: 0.4em;
+    background: rgb(154, 170, 243);
+    color: #ffff;
+    cursor: pointer;
+    border: 0;
+    padding: 0.4em 1.5em;
+    margin-top: 1em;
+}

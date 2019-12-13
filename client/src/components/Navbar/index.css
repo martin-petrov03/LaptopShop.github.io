@@ -8,7 +8,7 @@
   overflow: hidden;
 }
 
-.site-logo {
+.nav .site-logo {
   text-decoration: none;
   font-size: 2em;  
   margin-left: 2em;
@@ -41,8 +41,14 @@
     padding: 1em;
 }
 
+@media only screen and (min-width: 900px) {
+  .drop-down-content {
+    display: none;
+  }
+}
+
 @media only screen and (max-width: 1050px) {  
-  .site-logo {
+  .nav .site-logo {
     font-size: 1.5em;
   }
 
@@ -69,7 +75,7 @@
     display: none;
   }
 
-  .menu-icon:hover .nav ul{
+  .nav .menu-icon:hover .nav ul{
     display: block;
     position: absolute;
     width: 100%;
@@ -77,8 +83,8 @@
   }
 }
 
-@media only screen and (max-width: 511px) {  
-  .site-logo {
+@media only screen and (max-width: 511px) {
+  .nav .site-logo {
     margin-left: 1.5em;
   }
 }

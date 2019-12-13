@@ -1,17 +1,21 @@
 import React, { Component, createContext } from 'react';
 
-export const AuthContext = createContext();
+export const AuthContext = createContext({});
 
 class AuthContextProvider extends Component {
     state = {
-        isAuthenticated: false
+        isAuthenticated: false,
+        isAdmin: false
     }
 
     logout = () => {
         this.setState({ isAuthenticated: false });
     }
 
-    login = () => {
+    login = (isAdmin) => {
+        if(isAdmin) {
+            this.setState({ isAdmin: true });
+        }
         this.setState({ isAuthenticated: true });
     }
 

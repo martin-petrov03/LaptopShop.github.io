@@ -4,13 +4,13 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import * as serviceWorker from './serviceWorker';
 import './index.css';
 import App from './App';
-// import AuthContextProvider from './contexts/AuthContext';
+import AuthContextProvider from './contexts/AuthContext';
 
 ReactDOM.render(
-    // <AuthContextProvider>
+    <AuthContextProvider>
         <Router>
             <App />
         </Router>
-    // </AuthContextProvider>
+    </AuthContextProvider>
     , document.getElementById('root'));
 serviceWorker.unregister();

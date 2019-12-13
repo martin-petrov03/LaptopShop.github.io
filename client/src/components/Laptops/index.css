@@ -1,0 +1,15 @@
+.laptops-container {    
+    margin-top: 2em;
+}
+
+.laptop {
+    display: flex;    
+    align-items: flex-start;
+    width: 45%;
+    margin: 0 auto;
+}
+
+.laptop img {
+    width: 20em;
+    height: auto;
+}

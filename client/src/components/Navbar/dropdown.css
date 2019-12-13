@@ -1,9 +1,9 @@
-header {
+.drop-down {
     display: block;    
     margin-top: 4em;    
 }
 
-.links {
+.drop-down .links {
     display: flex;
     position: absolute;
     right: 0;
@@ -11,21 +11,21 @@ header {
     margin-right: 3em;
 }
 
-.links a {
+.drop-down .links a {
     color: #000;    
     text-decoration: none;
     margin-left: 2em;
     padding: 0.4em;
 }
 
-.nav li a:hover {    
+.drop-down li a:hover {    
     background-color: #d8d8d8;    
     border: 0;
     padding: 0.4em;
 }
 
 @media only screen and (max-width: 511px) {  
-    .links {
+    .drop-down .links {
         margin-left: 2em;        
         font-size: 0.7em;
     }

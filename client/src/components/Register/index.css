@@ -4,24 +4,24 @@
     right: 0;
     top: 7em;
     margin-left: auto;
-    margin-right: auto;    
+    margin-right: auto;
 }
 
 .registration-container h1 {
     text-align: center;
 }
 
-.register-form {        
+.registration-form {        
     text-align: center;
     margin-top: 2em;
 }
 
 
-.register-form label {
+.registration-form label {
     display: block;
 }
 
-.register-form .submit-btn {
+.registration-form .submit-btn {
     border-radius: 0.4em;
     background: rgb(154, 170, 243);
     color: #ffff;

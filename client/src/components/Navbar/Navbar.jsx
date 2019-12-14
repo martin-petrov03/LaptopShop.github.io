@@ -8,7 +8,6 @@ import Dropdown from './Dropdown';
 
 const Navbar = () => {
   const context = useContext(AuthContext);
-
   const [isOpen, setIsOpen] = useState(false);  
 
   const handleClick = () => {    

@@ -18,29 +18,33 @@ const Login = (props) => {
     const password = inputs.password;
     const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-    if(email && email.length >= 5 && emailRegex.test(email)) {
-      if(password && password.length >= 5) {
-
-        axios.post('http://localhost:3001/auth/signin', { email, password })
-          .then(res => {
-            if(res.status === 200 && res.data.token) {
-              Cookie.set('username', res.data.username);
-              Cookie.set('userId', res.data.userId);
-              Cookie.set('token', res.data.token);
-              const { login, setData } = context;
-              login();
-              setData();
-              props.history.push('/');            
-            }
-          })
-          .catch(err => {
-            setError('Invalid login!');
-          })
+    if(email && email.length >= 5) {
+      if(emailRegex.test(email)) {
+        if(password && password.length >= 5) {
+  
+          axios.post('http://localhost:3001/auth/signin', { email, password })
+            .then(res => {
+              if(res.status === 200 && res.data.token) {
+                Cookie.set('username', res.data.username);
+                Cookie.set('userId', res.data.userId);
+                Cookie.set('token', res.data.token);
+                const { login, setData } = context;
+                login();
+                setData();
+                props.history.push('/');            
+              }
+            })
+            .catch(err => {
+              setError('Invalid login!');
+            })
+        } else {
+          setError('Password should be at least 5 characters length!');
+        }
       } else {
-        setError('Password should be al least 5 characters length!');        
+        setError('Invalid email!');
       }
     } else {
-      setError('Invalid email!');
+        setError('E-Mail should be at least 5 characters length!');
     }
   }
   const handleChange = (event) => {
@@ -57,7 +61,7 @@ const Login = (props) => {
       {
         error.length ? <Error message={error} /> : null
       }
-      <h1>Login</h1>
+      <h1>Sing In</h1>
       <form className="login-form" onSubmit={handleSubmit}>
         <label htmlFor="email">Email</label>
         <input type="email" name="email" id="email" onChange={handleChange} /><br/>

@@ -5,7 +5,7 @@ export const AuthContext = createContext({});
 
 class AuthContextProvider extends Component {
     state = {
-        isAuthenticated: false,
+        isAuthenticated: Cookie.get('token').length,
         isAdmin: false,
         username: '',
         token: '',

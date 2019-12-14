@@ -14,7 +14,7 @@ const Accessory = (props) => {
                         <h1>{accessory.model}</h1>
                         <img src={accessory.url} alt={accessory.model} />
                         <p>{accessory.description}</p>
-                        <h2>{accessory.price}</h2>
+                        <h2>{accessory.price.toFixed(2)}&#x24;</h2>
                     </section>
                 );
             });

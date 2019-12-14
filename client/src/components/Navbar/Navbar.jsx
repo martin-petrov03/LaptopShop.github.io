@@ -1,7 +1,7 @@
 import React, { Fragment, useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
-import Cookies from 'js-cookie';
 import { IoIosMenu } from "react-icons/io";
+import Cookie from 'js-cookie';
 import './index.css';
 import { AuthContext } from '../../contexts/AuthContext';
 import Dropdown from './Dropdown';
@@ -18,10 +18,9 @@ const Navbar = () => {
   const logout = () => {
     const { logout } = context;
     logout();
-    Cookies.set('token', '');
-    localStorage.removeItem('username');
-    localStorage.removeItem('userId');
-    localStorage.removeItem('likedProductsIds');    
+    Cookie.set('token', '');
+    Cookie.set('username', '');
+    Cookie.set('userId', '');
   }
 
   return (

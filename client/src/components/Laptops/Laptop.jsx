@@ -14,7 +14,7 @@ const Laptop = (props) => {
                         <h1>{laptop.model}</h1>
                         <img src={laptop.url} alt={laptop.model} />
                         <p>{laptop.description}</p>
-                        <h2>{laptop.price}</h2>
+                        <h2>{laptop.price}&#x24;</h2>
                     </section>
                 );
             });

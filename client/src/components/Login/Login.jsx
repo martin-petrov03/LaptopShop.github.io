@@ -16,7 +16,7 @@ const Login = (props) => {
     event.preventDefault();
     const email = inputs.email;
     const password = inputs.password;
-    const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/gm;
+    const emailRegex = /^(([^<>()[]\\.,;:\s@"]+(\.[^<>()[]\\.,;:\s@"]+)*)|(".+"))@(([[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/gm;
 
     if(email && email.length >= 5) {
       if(emailRegex.test(email)) {
@@ -28,9 +28,8 @@ const Login = (props) => {
                 Cookie.set('username', res.data.username);
                 Cookie.set('userId', res.data.userId);
                 Cookie.set('token', res.data.token);
-                const { login, setData } = context;
-                login();
-                setData();
+                const { login } = context;
+                login();                           
                 props.history.push('/');            
               }
             })
@@ -38,13 +37,13 @@ const Login = (props) => {
               setError('Invalid login!');
             })
         } else {
-          setError('Password should be at least 5 characters length!');
+          setError('Password should be at least 5 characters!');
         }
       } else {
         setError('Invalid email!');
       }
     } else {
-        setError('E-Mail should be at least 5 characters length!');
+        setError('E-Mail should be at least 5 characters!');
     }
   }
   const handleChange = (event) => {

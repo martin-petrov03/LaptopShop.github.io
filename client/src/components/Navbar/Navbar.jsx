@@ -41,8 +41,8 @@ const Navbar = () => {
             <Fragment>              
               <li><Link to="/">Laptops</Link></li>
               <li><Link to="/accessories">Accessories</Link></li>
-              <li><Link to="/product/add">Add Product</Link></li>
-              <li><Link to="/product/add">Add Accessories</Link></li>
+              <li><Link to="/laptops/add">Add Laptop</Link></li>
+              <li><Link to="/products/add">Add Accessories</Link></li>
               <li><Link to="" onClick={logout}>Logout</Link></li>
             </Fragment>
           )

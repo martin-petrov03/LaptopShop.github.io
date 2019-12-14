@@ -5,20 +5,12 @@ export const AuthContext = createContext({});
 
 class AuthContextProvider extends Component {
     state = {
-        isAuthenticated: Cookie.get('token').length,
+        isAuthenticated: Cookie.get('token') && Cookie.get('token').length,
         isAdmin: false,
-        username: '',
-        token: '',
-        userId: ''
-    }
-
-    setData = () => {
-        const username = Cookie.get('username');
-        const userId = Cookie.get('userId');
-        const token = Cookie.get('token');
-
-        this.setState({ username, userId, token });
-    }
+        username: Cookie.get('username'),
+        token: Cookie.get('token'),
+        userId: Cookie.get('userId')
+    }   
 
     logout = () => {
         this.setState({ isAuthenticated: false, username: '', userId: '', token: '' });
@@ -33,7 +25,7 @@ class AuthContextProvider extends Component {
 
     render() {
         return (
-            <AuthContext.Provider value={{ ...this.state, logout: this.logout, login: this.login, setData: this.setData }}>
+            <AuthContext.Provider value={{ ...this.state, logout: this.logout, login: this.login }}>
                 {this.props.children}
             </AuthContext.Provider>
         );

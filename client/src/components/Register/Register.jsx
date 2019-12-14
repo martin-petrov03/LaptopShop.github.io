@@ -36,16 +36,16 @@ const Registration = (props) => {
                         setError('Invalid registration!');
                     })
                 } else {
-                setError('Password should be at least 5 characters length!');
+                setError('Password should be at least 5 characters!');
                 }
             } else {
-                setError('Username should be at least 5 characters length!');
+                setError('Username should be at least 5 characters!');
             }
         } else {
             setError('Invalid email!');
         }
     } else {
-        setError('E-Mail should be at least 5 characters length!');
+        setError('E-Mail should be at least 5 characters!');
     }
   }
 

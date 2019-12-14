@@ -41,11 +41,11 @@ const createNewProduct = async(req, res) => {
         const newProduct = { model, url, description, price, author: authorId };
 
         try{
-            await Laptop.create(newProduct)                        
+            await Laptop.create(newProduct)
             
-            res.status(200).json(
+            res.status(201).json(
                 {
-                    message: 'Product successfully created!'                  
+                    message: 'Product successfully created!'          
                 }
             );
         }
@@ -53,7 +53,7 @@ const createNewProduct = async(req, res) => {
             res.status(500).json(
             {
                 message: 'Product cannot be created!',
-            });
+            });            
         }
     }
 }

@@ -6,12 +6,7 @@ async function auth(req, res) {
   const userId = req.headers.userid;
 
   try {
-    const user = await User.findById(userId);
-    if(!user) {
-      res.status(400)
-        .json({ message: 'Invalid userId!' });
-      return false;
-    }
+    const user = await User.findById(userId);    
   } catch(error) {
     res.status(400)
       .json({ message: 'Invalid userId!' });

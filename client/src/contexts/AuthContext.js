@@ -5,8 +5,7 @@ export const AuthContext = createContext({});
 
 class AuthContextProvider extends Component {
     state = {
-        isAuthenticated: Cookie.get('token') && Cookie.get('token').length,
-        isAdmin: false,
+        isAuthenticated: Cookie.get('token') && Cookie.get('token').length,        
         username: Cookie.get('username'),
         token: Cookie.get('token'),
         userId: Cookie.get('userId')
@@ -16,12 +15,9 @@ class AuthContextProvider extends Component {
         this.setState({ isAuthenticated: false, username: '', userId: '', token: '' });
     }
 
-    login = () => {
-        if(Cookie.get('isAdmin')) {
-            this.setState({ isAdmin: true });
-        }
+    login = () => {        
         this.setState({ isAuthenticated: true });
-    }
+    }    
 
     render() {
         return (

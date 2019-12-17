@@ -18,7 +18,8 @@ const Dropdown = (props) => {
                         <li><Link to="/">Laptops</Link></li>
                         <li><Link to="/accessories">Accessories</Link></li>
                         <li><Link to="/laptops/add">Add Laptop</Link></li>
-                        <li><Link to="/product/add">Add Accessories</Link></li>
+                        <li><Link to="/accessories/add">Add Accessories</Link></li>
+                        {props.isAdmin()}
                         <li><Link to="" onClick={props.logout}>Logout</Link></li>
                     </div>
                 )

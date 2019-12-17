@@ -20,6 +20,13 @@ const Navbar = () => {
     Cookie.set('token', '');
     Cookie.set('username', '');
     Cookie.set('userId', '');
+    Cookie.set('isAdmin', '');
+  }
+
+  const isAdmin = () => {  
+    if(Cookie.get('isAdmin')) {
+      return <li><Link to="/checkouts/all">Checkouts</Link></li>;
+    }
   }
 
   return (
@@ -29,7 +36,7 @@ const Navbar = () => {
       <div className="drop-down-content">
       {
         isOpen ?(
-          <Dropdown isOpen={isOpen} logout={logout} />
+          <Dropdown isOpen={isOpen} isAdmin={isAdmin} logout={logout} />
         )
         :false
       }
@@ -38,11 +45,12 @@ const Navbar = () => {
       <ul>
         {
           context.isAuthenticated ?(
-            <Fragment>              
+            <Fragment>
               <li><Link to="/">Laptops</Link></li>
               <li><Link to="/accessories">Accessories</Link></li>
               <li><Link to="/laptops/add">Add Laptop</Link></li>
-              <li><Link to="/products/add">Add Accessories</Link></li>
+              <li><Link to="/accessories/add">Add Accessories</Link></li>
+              {isAdmin()}
               <li><Link to="" onClick={logout}>Logout</Link></li>
             </Fragment>
           )

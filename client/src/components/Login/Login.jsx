@@ -16,7 +16,7 @@ const Login = (props) => {
     event.preventDefault();
     const email = inputs.email;
     const password = inputs.password;
-    const emailRegex = /^(([^<>()[]\\.,;:\s@"]+(\.[^<>()[]\\.,;:\s@"]+)*)|(".+"))@(([[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/gm;
+    const emailRegex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
     if(email && email.length >= 5) {
       if(emailRegex.test(email)) {
@@ -27,7 +27,11 @@ const Login = (props) => {
               if(res.status === 200 && res.data.token) {
                 Cookie.set('username', res.data.username);
                 Cookie.set('userId', res.data.userId);
-                Cookie.set('token', res.data.token);
+                Cookie.set('token', res.data.token);                
+              
+                if(res.data.isAdmin === true) { 
+                  Cookie.set('isAdmin', res.data.isAdmin);
+                }
                 const { login } = context;
                 login();                           
                 props.history.push('/');            

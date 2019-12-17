@@ -6,7 +6,7 @@ const Laptop = (props) => {
     const displayLaptops = () => {
         const data = props.data;
         if(data.loading) {
-            return (<FaSpinner />);
+            return (<section className="laptop"><FaSpinner /></section>);
         } else {
             return data.laptops.map(laptop => {
                 return (

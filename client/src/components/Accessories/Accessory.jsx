@@ -6,13 +6,13 @@ const Accessory = (props) => {
     const displayAccessories = () => {
         const data = props.data;
         if(data.loading) {
-            return (<FaSpinner />);
+            return (<section className="accessory"><FaSpinner /></section>);
         } else {
             return data.accessories.map(accessory => {
                 return (
                     <section className="accessory" key={accessory.id}>
-                        <h1>{accessory.model}</h1>
-                        <img src={accessory.url} alt={accessory.model} />
+                        <h1>{accessory.title}</h1>
+                        <img src={accessory.url} alt={accessory.title} />
                         <p>{accessory.description}</p>
                         <h2>{accessory.price.toFixed(2)}&#x24;</h2>
                     </section>

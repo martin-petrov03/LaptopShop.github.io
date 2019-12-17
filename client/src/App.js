@@ -7,6 +7,7 @@ import Login from './components/Login/Login';
 import Register from './components/Register/Register';
 // import Error from './pages/Error';
 import AddLaptop from './components/AddLaptop/AddLaptop';
+import AddAccessories from './components/AddAccessories/AddAccessories';
 import Navbar from "./components/Navbar/Navbar";
 import Accessories from './components/Accessories/Accessories';
 
@@ -25,6 +26,7 @@ function App() {
         <Route exact path="/login" component={Login} />
         <Route exact path="/register" component={Register} />
         <Route exact path="/laptops/add" component={AddLaptop} />
+        <Route exact path="/accessories/add" component={AddAccessories} />
         {/* <Route component={Error} /> */}
       </Switch>
     </ApolloProvider>    

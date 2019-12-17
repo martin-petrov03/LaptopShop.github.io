@@ -5,7 +5,7 @@ import './index.css';
 import Error from '../Error/Error';
 import { AuthContext } from '../../contexts/AuthContext';
 
-const AddLaptop = (props) => {
+const AddAccessories = (props) => {
   const context = useContext(AuthContext);  
   const [error, setError] = useState('');
   const [inputs, setInputs] = useState({});
@@ -13,30 +13,30 @@ const AddLaptop = (props) => {
   axios.defaults.headers = {
     'Content-Type': 'application/json',
     'token': context.token, 
-    'userId': context.userId  
+    'userId': context.userId
   }    
 
   const handleSubmit = (event) => {
     setError('');
     event.preventDefault();
-    const model = inputs.model;
+    const title = inputs.title;
     const url = inputs.url;
     const description = inputs.description;
     const price = Number(inputs.price);    
 
-    if(model && model.length >= 5) {
+    if(title && title.length >= 5) {
         if(url && url.length >= 5 && url.startsWith('http')) {
             if(description && description.length >= 10) {
                 if(price && price >= 0.01  && price <= 9999.99) {
-                    axios.post('http://localhost:3001/laptops/add', { model, url, description, price })
-                    .then(res => {                      
+                    axios.post('http://localhost:3001/accessories/add', { title, url, description, price })
+                    .then(res => {                        
                       if(res.status === 201) {
-                        props.history.push('/');
+                        props.history.push('/accessories');
                       }
                     })
                     .catch(err => {
                       if(err.response.status === 409) {
-                        setError('Laptop already exists!');
+                        setError('Accessories already exists!');
                         return;
                       }
                       setError('Invalid!');
@@ -51,7 +51,7 @@ const AddLaptop = (props) => {
             setError('Invalid url!');
         }
     } else {
-        setError('Model should be at least 5 characters!');
+        setError('Title should be at least 5 characters!');
     }
   }
 
@@ -65,15 +65,15 @@ const AddLaptop = (props) => {
   }
 
   return (
-    <main className="add-laptop">
+    <main className="add-accessories">
       {
         error.length ? <Error message={error} /> : null
       }
       
-      <h1>Add Laptop</h1>
-      <form className="add-laptop-form" onSubmit={handleSubmit}>
-        <label htmlFor="model">Model</label>
-        <input type="text" name="model" id="model" onChange={handleChange} /><br/>
+      <h1>Add Accessories</h1>
+      <form className="add-accessories-form" onSubmit={handleSubmit}>
+        <label htmlFor="title">Title</label>
+        <input type="text" name="title" id="title" onChange={handleChange} /><br/>
         <label htmlFor="url">Url</label>
         <input type="text" name="url" id="url" onChange={handleChange} /><br/>
         <label htmlFor="description">Description</label>
@@ -87,4 +87,4 @@ const AddLaptop = (props) => {
   );
 }
 
-export default AddLaptop;
+export default AddAccessories;

@@ -9,12 +9,13 @@ const Laptop = (props) => {
             return (<section className="laptop"><FaSpinner /></section>);
         } else {
             return data.laptops.map(laptop => {
+                const price = laptop.price.toFixed(2);
                 return (
                     <section className="laptop" key={laptop.id}>
                         <h1>{laptop.model}</h1>
                         <img src={laptop.url} alt={laptop.model} />
                         <p>{laptop.description}</p>
-                        <h2>{laptop.price}&#x24;</h2>
+                        <h2>{price}&#x24;</h2>
                     </section>
                 );
             });

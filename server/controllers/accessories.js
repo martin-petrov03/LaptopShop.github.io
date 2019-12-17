@@ -51,7 +51,7 @@ const createNewAccessory = async(req, res) => {
         try{
             await Accessory.create(newProduct)                        
             
-            res.status(200).json(
+            res.status(201).json(
                 {
                     message: 'Product successfully created!'
                 }

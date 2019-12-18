@@ -1,10 +1,11 @@
 .drop-down {
-    display: block;    
-    margin-top: 4em;    
+    display: block;
+    margin-top: 2.5em;
 }
 
 .drop-down .links {    
     position: absolute;
+    overflow: hidden;
     right: 0;
     list-style: none;
     margin: 0;
@@ -14,16 +15,21 @@
     color: #000;    
     text-decoration: none;
     margin-left: 2em;
+    margin-top: 2em;
     padding: 0.4em;
 }
 
-.drop-down li a:hover {    
-    background-color: #d8d8d8;    
+.drop-down .links li {
+    margin-top: 1em;
+}
+
+.drop-down .links li a:hover {
+    background-color: #d8d8d8;
     border: 0;
     padding: 0.4em;
 }
 
-@media only screen and (max-width: 511px) {  
+@media only screen and (max-width: 511px) {
     .drop-down .links {
         margin-left: 2em;        
         font-size: 0.7em;

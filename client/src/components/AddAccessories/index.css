@@ -1,8 +1,6 @@
-.add-accessories {
-    position: absolute;
+.add-accessories {    
     left: 0; 
-    right: 0;
-    top: 7em;
+    right: 0;    
     margin-left: auto;
     margin-right: auto;
 }
@@ -29,4 +27,10 @@
     border: 0;
     padding: 0.4em 1.5em;
     margin-top: 1em;
+}
+
+@media only screen and (max-width: 440px) {  
+    .add-accessories h1 {
+        font-size: 1.3em;
+    }
 }

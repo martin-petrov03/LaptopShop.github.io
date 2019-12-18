@@ -1,10 +1,7 @@
-.add-laptop {
-    position: absolute;
+.add-laptop {    
     left: 0; 
     right: 0;
-    top: 7em;
-    margin-left: auto;
-    margin-right: auto;
+    top: 7em;    
 }
 
 .add-laptop h1 {

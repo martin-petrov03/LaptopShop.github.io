@@ -29,15 +29,19 @@ const AddLaptop = (props) => {
             if(description && description.length >= 10) {
                 if(price && price >= 0.01  && price <= 9999.99) {
                     axios.post('http://localhost:3001/laptops/add', { model, url, description, price })
-                    .then(res => {                      
+                    .then(res => {      
                       if(res.status === 201) {
                         props.history.push('/');
+                      } else if(res.status === 401) {
+                        props.history.push('/login');                        
                       }
                     })
-                    .catch(err => {
+                    .catch(err => {                      
                       if(err.response.status === 409) {
                         setError('Laptop already exists!');
                         return;
+                      } else if(err.response.status === 401) {                        
+                        props.history.push('/login');    
                       }
                       setError('Invalid!');
                     })

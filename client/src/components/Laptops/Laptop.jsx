@@ -5,8 +5,10 @@ import './index.css';
 const Laptop = (props) => {
     const displayLaptops = () => {
         const data = props.data;
-        if(data.loading) {
-            return (<section className="laptop"><FaSpinner /></section>);
+        if(!data || (data.laptops && data.laptops.length === 0)) {
+            return (<p className="message">No Laptops</p>)
+        } else if(data.loading) {
+            return (<section className="message"><FaSpinner /></section>);
         } else {
             return data.laptops.map(laptop => {
                 const price = laptop.price.toFixed(2);

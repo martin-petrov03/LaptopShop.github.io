@@ -24,7 +24,7 @@ const AddAccessories = (props) => {
     const description = inputs.description;
     const price = Number(inputs.price);    
 
-    if(title && title.length >= 5) {
+    if(title && title.length >= 5 && title.length <= 20) {
         if(url && url.length >= 5 && url.startsWith('http')) {
             if(description && description.length >= 10) {
                 if(price && price >= 0.01  && price <= 9999.99) {
@@ -51,7 +51,7 @@ const AddAccessories = (props) => {
             setError('Invalid url!');
         }
     } else {
-        setError('Title should be at least 5 characters!');
+        setError('Title should be between 5 and 20 characters!');
     }
   }
 

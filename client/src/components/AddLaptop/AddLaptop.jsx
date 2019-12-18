@@ -24,7 +24,7 @@ const AddLaptop = (props) => {
     const description = inputs.description;
     const price = Number(inputs.price);    
 
-    if(model && model.length >= 5) {
+    if(model && model.length >= 5 && model.length <= 20) {
         if(url && url.length >= 5 && url.startsWith('http')) {
             if(description && description.length >= 10) {
                 if(price && price >= 0.01  && price <= 9999.99) {
@@ -55,7 +55,7 @@ const AddLaptop = (props) => {
             setError('Invalid url!');
         }
     } else {
-        setError('Model should be at least 5 characters!');
+        setError('Model should be between 5 and 20 characters!');
     }
   }
 

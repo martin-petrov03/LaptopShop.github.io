@@ -34,7 +34,7 @@ const createNewAccessory = async(req, res) => {
             isValid = false;
         } else if(description.length < 10) {
             isValid = false;
-        } else if(title.length < 5) {
+        } else if(title.length < 5 || title.length > 20) {
             isValid = false;
         }
 

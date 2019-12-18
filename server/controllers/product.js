@@ -29,7 +29,7 @@ const createNewProduct = async(req, res) => {
             return;
         }
 
-        if((!url.startsWith('http') || description.length < 10 || model.length < 5) && authorId)
+        if((!url.startsWith('http') || description.length < 10 || model.length < 5 || model.length > 20) && authorId)
         {
             res.status(400).json(
             {
@@ -96,7 +96,7 @@ const deleteProduct = async(req, res) => {
     }
 }
 
-module.exports = {    
-    createNewProduct,    
-    deleteProduct    
+module.exports = {
+    createNewProduct,
+    deleteProduct
 };

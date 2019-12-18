@@ -6,7 +6,8 @@ const laptopSchema = new Schema({
     type: Schema.Types.String,
     required: true,
     unique: true,
-    minlength: 5
+    minlength: 5,
+    maxlength: 20
   },
   url: {
     type: Schema.Types.String,

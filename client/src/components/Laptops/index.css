@@ -1,4 +1,5 @@
-.laptops-container {    
+.laptops-container {
+    margin-top: 3em;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     justify-items: center;
@@ -6,33 +7,39 @@
 }
 
 .laptops-container .laptop {
-    width: 70%;
+    cursor: pointer;
+    width: 60%;
+    margin: 0 auto;
     margin-top: 4em;
 }
 
 .laptop img {
     width: auto;
-    height: 10em;
+    height: 9em;
 }
 
 .laptops-container > .message {
     grid-column: 1 / span 3;
     grid-row: 1;
-    margin-top: 5em;    
+    margin-top: 5em;
 }
 
 @media only screen and (max-width: 870px) {  
-    .laptops-container { 
-        grid-template-columns: repeat(1, 1fr);
+    .laptops-container {
+        grid-template-columns: repeat(1, 1fr);        
     }
 
     .laptops-container .laptop  {
         margin-top: 2em;
     }
+
+    .laptops-container .laptop:first-child  {
+        margin-top: 0;
+    }
 }
 
-@media only screen and (max-width: 500px) {  
+@media only screen and (max-width: 600px) {  
     .laptops-container {
-        margin-top: 3em;
+        margin-top: 14em;
     }
 }

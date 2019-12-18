@@ -3,7 +3,7 @@
     margin-top: 2.5em;
 }
 
-.drop-down .links {    
+.drop-down .links {        
     position: absolute;
     overflow: hidden;
     right: 0;
@@ -14,7 +14,7 @@
 .drop-down .links a {
     color: #000;    
     text-decoration: none;
-    margin-left: 2em;
+    margin-right: 3em;
     margin-top: 2em;
     padding: 0.4em;
 }
@@ -23,13 +23,17 @@
     margin-top: 1em;
 }
 
+.drop-down .links li:first-child {
+    margin-top: 3.5em;
+}
+
 .drop-down .links li a:hover {
     background-color: #d8d8d8;
     border: 0;
     padding: 0.4em;
 }
 
-@media only screen and (max-width: 511px) {
+@media only screen and (max-width: 600px) {
     .drop-down .links {
         margin-left: 2em;        
         font-size: 0.7em;

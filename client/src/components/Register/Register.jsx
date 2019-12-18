@@ -64,8 +64,8 @@ const Registration = (props) => {
         error.length ? <Error message={error} /> : null
       }
       
-      <h1>Sign Up</h1>
       <form className="registration-form" onSubmit={handleSubmit}>
+        <h1>Sign Up</h1>
         <label htmlFor="email">Email</label>
         <input type="email" name="email" id="email" onChange={handleChange} /><br/>
         <label htmlFor="username">Username</label>

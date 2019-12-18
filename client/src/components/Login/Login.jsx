@@ -64,8 +64,8 @@ const Login = (props) => {
       {
         error.length ? <Error message={error} /> : null
       }
-      <h1>Sing In</h1>
       <form className="login-form" onSubmit={handleSubmit}>
+        <h1>Sing In</h1>
         <label htmlFor="email">Email</label>
         <input type="email" name="email" id="email" onChange={handleChange} /><br/>
         <label htmlFor="password" onChange={handleChange}>Password</label>

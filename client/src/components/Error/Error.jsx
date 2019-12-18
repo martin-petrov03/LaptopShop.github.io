@@ -3,7 +3,7 @@ import './index.css';
 
 const Error = (props) => {
   return (
-    <h3 className="error-message">{props.message}</h3>
+    <h4 className="error-message">{props.message}</h4>
   );
 }
 

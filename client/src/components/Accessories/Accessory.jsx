@@ -5,8 +5,10 @@ import './index.css';
 const Accessory = (props) => {
     const displayAccessories = () => {
         const data = props.data;
-        if(data.loading) {
-            return (<section className="accessory"><FaSpinner /></section>);
+        if(!data || (data.accessories && data.accessories.length === 0)) {
+            return (<p className="message">No Accessories</p>)
+        } else if(data.loading) {
+            return (<section className="message"><FaSpinner /></section>);
         } else {
             return data.accessories.map(accessory => {
                 const price = accessory.price.toFixed(2);

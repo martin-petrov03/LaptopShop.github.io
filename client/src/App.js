@@ -10,6 +10,7 @@ import AddLaptop from './components/AddLaptop/AddLaptop';
 import AddAccessories from './components/AddAccessories/AddAccessories';
 import Navbar from "./components/Navbar/Navbar";
 import Accessories from './components/Accessories/Accessories';
+import AccessoryDetails from './components/Accessories/AccessoryDetails';
 
 //apollo setup
 const client = new ApolloClient({
@@ -27,6 +28,7 @@ function App() {
         <Route exact path="/register" component={Register} />
         <Route exact path="/laptops/add" component={AddLaptop} />
         <Route exact path="/accessories/add" component={AddAccessories} />
+        <Route exact path="/accessories/:id" component={AccessoryDetails} />
         {/* <Route component={Error} /> */}
       </Switch>
     </ApolloProvider>    

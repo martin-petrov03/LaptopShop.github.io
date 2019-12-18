@@ -7,9 +7,16 @@
 }
 
 .accessories-container .accessory {
+    text-decoration: none;
+    color: #000;
     cursor: pointer;
     width: 70%;
-    margin-top: 4em;
+    margin-top: 4em;    
+}
+
+.accessories-container section {
+    grid-column: 1 / span 3;
+    grid-row: 1;
 }
 
 .accessory img {

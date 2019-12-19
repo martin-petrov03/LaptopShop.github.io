@@ -6,11 +6,17 @@
     justify-content: space-between;    
 }
 
-.laptops-container .laptop {
+.laptops-container .laptop {    
+    text-decoration: none;
+    color: #000;    
     cursor: pointer;
-    width: 60%;
-    margin: 0 auto;
+    width: 70%;    
     margin-top: 4em;
+}
+
+.laptops-container section {
+    grid-column: 1 / span 3;
+    grid-row: 1;
 }
 
 .laptop img {
@@ -38,7 +44,7 @@
     }
 }
 
-@media only screen and (max-width: 600px) {  
+@media only screen and (max-width: 900px) {  
     .laptops-container {
         margin-top: 14em;
     }

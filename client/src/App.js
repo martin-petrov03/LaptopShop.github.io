@@ -11,6 +11,7 @@ import AddAccessories from './components/AddAccessories/AddAccessories';
 import Navbar from "./components/Navbar/Navbar";
 import Accessories from './components/Accessories/Accessories';
 import AccessoryDetails from './components/Accessories/AccessoryDetails';
+import LaptopDetails from './components/Laptops/LaptopDetails';
 
 //apollo setup
 const client = new ApolloClient({
@@ -18,7 +19,7 @@ const client = new ApolloClient({
 })
 
 function App() {
-  return (    
+  return (
     <ApolloProvider client={client}>
       <Navbar />
       <Switch>
@@ -29,6 +30,7 @@ function App() {
         <Route exact path="/laptops/add" component={AddLaptop} />
         <Route exact path="/accessories/add" component={AddAccessories} />
         <Route exact path="/accessories/:id" component={AccessoryDetails} />
+        <Route exact path="/laptops/:id" component={LaptopDetails} />
         {/* <Route component={Error} /> */}
       </Switch>
     </ApolloProvider>    

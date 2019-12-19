@@ -14,6 +14,7 @@ const Accessory = (props) => {
             return data.accessories.map(accessory => {
                 const price = accessory.price.toFixed(2);
                 const url = `/accessories/${accessory.id}`;
+                
                 return (
                     <Link to={url} className="accessory" key={accessory.id}>
                         <h1>{accessory.title}</h1>

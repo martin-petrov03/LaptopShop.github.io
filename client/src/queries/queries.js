@@ -8,6 +8,7 @@ const getLaptopsQuery = gql`
             url
             description
             price
+            
         }        
     }
 `;

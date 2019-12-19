@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { FaSpinner } from "react-icons/fa";
 import './index.css';
 
@@ -12,13 +13,15 @@ const Laptop = (props) => {
         } else {
             return data.laptops.map(laptop => {
                 const price = laptop.price.toFixed(2);
+                const url = `/laptops/${laptop.id}`;
+
                 return (
-                    <section className="laptop" key={laptop.id}>
+                    <Link to={url} className="laptop" key={laptop.id}>
                         <h1>{laptop.model}</h1>
                         <img src={laptop.url} alt={laptop.model} />
                         <p>{laptop.description}</p>
                         <h2>{price}&#x24;</h2>
-                    </section>
+                    </Link>
                 );
             });
         }

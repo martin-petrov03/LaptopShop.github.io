@@ -6,15 +6,15 @@ import Error from '../Error/Error';
 import { AuthContext } from '../../contexts/AuthContext';
 
 const AddLaptop = (props) => {
-  const context = useContext(AuthContext);  
+  const context = useContext(AuthContext);
   const [error, setError] = useState('');
   const [inputs, setInputs] = useState({});
   
   axios.defaults.headers = {
     'Content-Type': 'application/json',
     'token': context.token, 
-    'userId': context.userId  
-  }    
+    'userId': context.userId
+  }
 
   const handleSubmit = (event) => {
     setError('');
@@ -28,34 +28,34 @@ const AddLaptop = (props) => {
         if(url && url.length >= 5 && url.startsWith('http')) {
             if(description && description.length >= 10) {
                 if(price && price >= 0.01  && price <= 9999.99) {
-                    axios.post('http://localhost:3001/laptops/add', { model, url, description, price })
-                    .then(res => {      
-                      if(res.status === 201) {
-                        props.history.push('/');
-                      } else if(res.status === 401) {
-                        props.history.push('/login');                        
-                      }
-                    })
-                    .catch(err => {                      
-                      if(err.response.status === 409) {
-                        setError('Laptop already exists!');
-                        return;
-                      } else if(err.response.status === 401) {                        
-                        props.history.push('/login');    
-                      }
-                      setError('Invalid!');
-                    })
+                  axios.post('http://localhost:3001/laptops/add', { model, url, description, price })
+                  .then(res => {      
+                    if(res.status === 201) {
+                      props.history.push('/');
+                    } else if(res.status === 401) {
+                      props.history.push('/login');                        
+                    }
+                  })
+                  .catch(err => {                      
+                    if(err.response.status === 409) {
+                      setError('Laptop already exists!');
+                      return;
+                    } else if(err.response.status === 401) {                        
+                      props.history.push('/login');    
+                    }
+                    setError('Invalid!');
+                  })
                 } else {
                     setError('Invalid price!');
                 }
             } else {
-                setError('Description should be at least 10 characters!');
+              setError('Description should be at least 10 characters!');
             }
         } else {
-            setError('Invalid url!');
+          setError('Invalid url!');
         }
     } else {
-        setError('Model should be between 5 and 20 characters!');
+      setError('Model should be between 5 and 20 characters!');
     }
   }
 

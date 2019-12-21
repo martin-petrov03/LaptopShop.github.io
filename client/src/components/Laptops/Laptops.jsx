@@ -7,7 +7,7 @@ import { getLaptopsQuery } from '../../queries/queries';
 const Laptops = (props) => {
     return (
         <main className="laptops-container">            
-            {                                  
+            {
                 <Laptop data={props.data} />
             }       
         </main>

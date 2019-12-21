@@ -10,7 +10,7 @@
     text-decoration: none;
     color: #000;    
     cursor: pointer;
-    width: 70%;    
+    width: 70%;
     margin-top: 4em;
 }
 
@@ -24,9 +24,21 @@
     height: 9em;
 }
 
+.laptop .submit-btn {
+    font-size: 2em;    
+}
+
+.laptop .submit-btn:hover {
+    color: rgb(15, 15, 139);
+}
+
 .laptops-container > .message {
     grid-column: 1 / span 3;
     grid-row: 1;
+    margin-top: 5em;
+}
+
+.laptop-details {
     margin-top: 5em;
 }
 
@@ -44,8 +56,8 @@
     }
 }
 
-@media only screen and (max-width: 900px) {  
-    .laptops-container {
-        margin-top: 14em;
+@media only screen and (max-width: 800px) {  
+    .laptops-container, .laptop-details {
+        margin-top: 15em;
     }
 }

@@ -8,7 +8,11 @@ const getLaptopsQuery = gql`
             url
             description
             price
-            
+            author{
+                id
+                username
+                email
+            }        
         }        
     }
 `;
@@ -21,32 +25,27 @@ const getAccessoriesQuery = gql`
             url
             description
             price
-        }
-    }
-`;
-
-const addBookMutation = gql`
-    mutation AddBook($name: String!, $genre: String!, $authorId: ID!){
-        addBook(name: $name, genre: $genre, authorId: $authorId){
-            name
-            id
-        }
-    }
-`;
-
-const getBookQuery = gql`
-    query($id: ID){
-        book(id: $id){
-            id
-            name
-            genre
             author{
                 id
-                name
-                age
-                books{
-                    name id
-                }
+                username
+                email
+            }
+        }
+    }
+`;
+
+const getCheckoutsQuery = gql`
+    {
+        checkouts {
+            id,
+            productName,
+            url,
+            price,
+            quantity,
+            author {
+                id,
+                username
+                email      
             }
         }
     }
@@ -55,6 +54,5 @@ const getBookQuery = gql`
 export {
     getLaptopsQuery,
     getAccessoriesQuery,
-    addBookMutation,
-    getBookQuery
+    getCheckoutsQuery
 };

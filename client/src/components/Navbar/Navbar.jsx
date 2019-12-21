@@ -21,6 +21,7 @@ const Navbar = () => {
     Cookie.set('username', '');
     Cookie.set('userId', '');
     Cookie.set('isAdmin', '');
+    Cookie.set('checkouts', {});
   }
 
   const isAdmin = () => {  
@@ -51,6 +52,7 @@ const Navbar = () => {
               <li><Link to="/laptops/add">Add Laptop</Link></li>
               <li><Link to="/accessories/add">Add Accessories</Link></li>
               {isAdmin()}
+              <li><Link to="/shopping-cart">Shopping Cart</Link></li>
               <li><Link to="" onClick={logout}>Logout</Link></li>
             </Fragment>
           )

@@ -31,17 +31,16 @@ const AddLaptop = (props) => {
                   axios.post('http://localhost:3001/laptops/add', { model, url, description, price })
                   .then(res => {      
                     if(res.status === 201) {
-                      props.history.push('/');
-                    } else if(res.status === 401) {
-                      props.history.push('/login');                        
+                      props.history.push('/');                      
                     }
                   })
                   .catch(err => {                      
                     if(err.response.status === 409) {
                       setError('Laptop already exists!');
                       return;
-                    } else if(err.response.status === 401) {                        
-                      props.history.push('/login');    
+                    } else if(err.response.status === 401) {
+                      props.history.push('/login');
+                      return;
                     }
                     setError('Invalid!');
                   })

@@ -1,5 +1,4 @@
 import React, { useState, useContext } from 'react';
-import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 import Cookie from 'js-cookie';
 import './index.css';
@@ -11,8 +10,19 @@ const Login = (props) => {
   const [error, setError] = useState('');
   const [inputs, setInputs] = useState({});
   
+  const logout = () => {
+    const { logout } = context;
+    logout();
+    Cookie.set('token', '');
+    Cookie.set('username', '');
+    Cookie.set('userId', '');
+    Cookie.set('isAdmin', '');
+    Cookie.set('checkouts', '');
+  }
+
   const handleSubmit = (event) => {
     setError('');
+    logout();
     event.preventDefault();
     const email = inputs.email;
     const password = inputs.password;
@@ -53,11 +63,7 @@ const Login = (props) => {
   const handleChange = (event) => {
     event.persist();
     setInputs(inputs => ({...inputs, [event.target.name]: event.target.value}));
-  }
-
-  if(context.isAuthenticated) {
-    return <Redirect to="/" />
-  }
+  } 
 
   return (
     <main className="login-container">

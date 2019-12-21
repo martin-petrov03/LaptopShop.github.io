@@ -8,16 +8,17 @@ class AuthContextProvider extends Component {
         isAuthenticated: Cookie.get('token') && Cookie.get('token').length,        
         username: Cookie.get('username'),
         token: Cookie.get('token'),
-        userId: Cookie.get('userId')
+        userId: Cookie.get('userId'),
+        checkouts: Cookie.get('checkouts')
     }   
 
     logout = () => {
         this.setState({ isAuthenticated: false, username: '', userId: '', token: '' });
     }
 
-    login = () => {        
+    login = () => {
         this.setState({ isAuthenticated: true });
-    }    
+    }
 
     render() {
         return (

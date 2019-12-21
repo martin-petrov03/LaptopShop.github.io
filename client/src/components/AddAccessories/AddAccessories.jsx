@@ -38,6 +38,8 @@ const AddAccessories = (props) => {
                       if(err.response.status === 409) {
                         setError('Accessories already exists!');
                         return;
+                      } if(err.response.status === 401) {
+                        props.history.push('/login');
                       }
                       setError('Invalid!');
                     })

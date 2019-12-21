@@ -12,6 +12,7 @@
   font-size: 2em;
   align-content: flex-start;  
   color: #000;
+  margin-left: 1.5em;
 }
 
 .nav .menu-icon {
@@ -83,6 +84,6 @@
 
 @media only screen and (max-width: 511px) {
   .nav .site-logo {
-    margin-left: 1.5em;
+    margin-left: 0;
   }
 }

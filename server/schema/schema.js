@@ -1,8 +1,9 @@
 const graphql = require('graphql');
-const { GraphQLObjectType, GraphQLString, GraphQLSchema, GraphQLID, GraphQLFloat, GraphQLList, GraphQLNonNull } = graphql;
+const { GraphQLObjectType, GraphQLString, GraphQLSchema, GraphQLID, GraphQLFloat, GraphQLList, GraphQLInt } = graphql;
 const Laptop = require('../models/Laptop');
 const Accessory = require('../models/Accessory');
 const User = require('../models/User');
+const Checkout = require('../models/Checkout');
 
 const LaptopType = new GraphQLObjectType({
     name: 'Laptop',
@@ -14,8 +15,25 @@ const LaptopType = new GraphQLObjectType({
         price: { type: GraphQLFloat },
         author: {
             type: AuthorType,
-            resolve(parent, args) {                
-                return User.findById(parent.authorId);
+            resolve(parent, args) {
+                return User.findById(parent.author);
+            }
+        }
+    })
+});
+
+const CheckoutType = new GraphQLObjectType({
+    name: 'Checkout',
+    fields: () => ({
+        id: { type: GraphQLID },
+        productName: { type: GraphQLString },
+        url: { type: GraphQLString },
+        price: { type: GraphQLFloat },
+        quantity: { type: GraphQLInt },
+        author: {
+            type: AuthorType,
+            resolve(parent, args) {
+                return User.findById(parent.author);
             }
         }
     })
@@ -26,17 +44,11 @@ const AuthorType = new GraphQLObjectType({
     fields: () => ({
         id: { type: GraphQLID },
         email: { type: GraphQLString },
-        username: { type: GraphQLString },
-        myLaptops: {
-            type: new GraphQLList(LaptopType),
-            resolve(parent, args) {
-                return Laptop.findById( parent.id );
-            }
-        }
+        username: { type: GraphQLString }        
     })
 });
 
-const accessoryType = new GraphQLObjectType({
+const AccessoryType = new GraphQLObjectType({
     name: 'Accessory',
     fields: () => ({
         id: { type: GraphQLID },
@@ -47,7 +59,7 @@ const accessoryType = new GraphQLObjectType({
         author: {
             type: AuthorType,
             resolve(parent, args) {                
-                return User.findById(parent.authorId);
+                return User.findById(parent.author);
             }
         }
     })
@@ -64,7 +76,7 @@ const RootQuery = new GraphQLObjectType({
             }
         },
         accessory: {
-            type: accessoryType,
+            type: AccessoryType,
             args: {id: {type: GraphQLID}},
             resolve(parent, args) {
                 return Accessory.findById(args.id);
@@ -84,9 +96,15 @@ const RootQuery = new GraphQLObjectType({
             }
         },
         accessories: {
-            type: new GraphQLList(accessoryType),
+            type: new GraphQLList(AccessoryType),
             resolve(parent, args) {
                 return Accessory.find();
+            }
+        },
+        checkouts: {
+            type: new GraphQLList(CheckoutType),
+            resolve(parent, args) {
+                return Checkout.find();
             }
         }
     }

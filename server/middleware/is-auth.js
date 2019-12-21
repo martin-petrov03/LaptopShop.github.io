@@ -8,7 +8,7 @@ async function auth(req, res) {
   try {
     const user = await User.findById(userId);    
   } catch(error) {
-    res.status(400)
+    res.status(401)
       .json({ message: 'Invalid userId!' });
     return false;
   }

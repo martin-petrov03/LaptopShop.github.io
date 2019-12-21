@@ -78,7 +78,7 @@ const deleteProduct = async(req, res) => {
             } else if(laptop.author !== userId) {
                 res.status(401).json(
                 {
-                    message: 'Not Authorized to delete the product!',
+                    message: 'Not authorized to delete the product!',
                 });
             }else {
                 res.status(400).json(
@@ -96,7 +96,25 @@ const deleteProduct = async(req, res) => {
     }
 }
 
+const getLaptops = async(req, res) => {            
+    try {
+        const laptops = await Laptop.find();            
+        res.status(200).json(
+        {
+            message: 'Laptops!',
+            laptops
+        });
+    }
+    catch(err) {
+        res.status(400).json(
+        {
+            message: 'Cannot find any products!',
+        });
+    }    
+}
+
 module.exports = {
     createNewProduct,
-    deleteProduct
+    deleteProduct,
+    getLaptops
 };

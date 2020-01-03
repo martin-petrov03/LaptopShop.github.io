@@ -33,9 +33,15 @@
     padding: 0.4em;
 }
 
-@media only screen and (max-width: 900px) {
+@media only screen and (max-width: 1200px) {
     .drop-down .links {
         margin-left: 2em;        
         font-size: 0.9em;
+    }
+}
+
+@media only screen and (max-width: 650px) {  
+    .nav {
+      margin-bottom: 18em;
     }
 }

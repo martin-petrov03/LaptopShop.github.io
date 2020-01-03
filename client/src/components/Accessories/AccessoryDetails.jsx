@@ -21,7 +21,7 @@ const AccessoryDetails = (props) => {
     }
 
     const deleteAccessory = (event) => {
-        const accessoryId = event.target.getAttribute('accessory');        
+        const accessoryId = event.target.getAttribute('accessory');
         if(accessoryId === '') {
             return;
         }

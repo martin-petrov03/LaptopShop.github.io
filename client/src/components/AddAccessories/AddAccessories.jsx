@@ -6,7 +6,7 @@ import Error from '../Error/Error';
 import { AuthContext } from '../../contexts/AuthContext';
 
 const AddAccessories = (props) => {
-  const context = useContext(AuthContext);  
+  const context = useContext(AuthContext);
   const [error, setError] = useState('');
   const [inputs, setInputs] = useState({});
   
@@ -14,7 +14,7 @@ const AddAccessories = (props) => {
     'Content-Type': 'application/json',
     'token': context.token, 
     'userId': context.userId
-  }    
+  }
 
   const handleSubmit = (event) => {
     setError('');

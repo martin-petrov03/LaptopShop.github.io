@@ -1,3 +1,13 @@
-.checkouts {
-    margin-top: 3em;
+.checkout {    
+    margin-top: 4em;
+}
+
+.checkout .complete-checkout-btn {   
+    border-radius: 0.4em;
+    background: rgb(154, 170, 243);
+    color: #ffff;
+    cursor: pointer;
+    border: 0;
+    padding: 0.4em 1.5em;
+    margin-top: 1em;    
 }

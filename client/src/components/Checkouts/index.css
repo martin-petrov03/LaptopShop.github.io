@@ -1,5 +1,17 @@
-.checkout {    
-    margin-top: 4em;
+.checkouts {    
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    justify-items: center;
+    justify-content: space-between;
+}
+
+.checkout {
+    margin-top: 3em;
+}
+
+.checkout img {
+    width: auto;
+    height: 9em;;
 }
 
 .checkout .complete-checkout-btn {   
@@ -10,4 +22,10 @@
     border: 0;
     padding: 0.4em 1.5em;
     margin-top: 1em;    
+}
+
+@media only screen and (max-width: 1200px) {
+    .checkouts { 
+        grid-template-columns: repeat(1, 1fr);
+    }
 }

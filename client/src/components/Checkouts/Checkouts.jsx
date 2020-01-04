@@ -48,7 +48,7 @@ const Checkouts = (props) => {
                     }
                 })
                 .catch(err => {                    
-                    if(err.response.status == 400 || err.response.status == 401) {
+                    if(err.response.status === 400 || err.response.status === 401) {
                         props.history.push('/login');
                     }
                 })
@@ -63,18 +63,26 @@ const Checkouts = (props) => {
     } else if(error) {
         return (<Error message={error} />);
     } else {
-        return checkouts.map((checkout, i) => {            
-            const key = checkout._id + i;
-            return(
-                <section className="checkout" key={key}>
-                    <h2>{checkout.productName}</h2>
-                    <img src={checkout.url} alt={checkout.productName} />
-                    <p>{checkout.price}&#x24;</p>
-                    <p>Quantity: {checkout.quantity}</p>
-                    <button className="complete-checkout-btn" checkout={checkout._id} onClick={completeCheckout}>Complete Checkout</button>
-                </section>
-            );
-        })
+        return (
+            <div className="checkouts">
+            {
+                checkouts.map((checkout, i) => {            
+                    const key = checkout._id + i;
+                    return(
+                        <section className="checkout" key={key}>
+                            <h2>{checkout.fullName}</h2>
+                            <h3>{checkout.address}</h3>
+                            <h2>{checkout.productName}</h2>
+                            <img src={checkout.url} alt={checkout.productName} />
+                            <p>{checkout.price * checkout.quantity}&#x24;</p>
+                            <p>Quantity: {checkout.quantity}</p>
+                            <button className="complete-checkout-btn" checkout={checkout._id} onClick={completeCheckout}>Complete Checkout</button>
+                        </section>
+                    );                                
+                })
+            }
+            </div>
+        )
     }    
 }
 

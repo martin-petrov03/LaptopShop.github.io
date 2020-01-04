@@ -1,4 +1,30 @@
-.products-table {
-    text-align: center;
+.products-table, .message {    
     margin: 0 auto;
+    padding: 4em 0;
+}
+
+.products-table tr {
+    padding: 2em;
+}
+
+.products-table .btn, .checkout-section .btn {
+    border-radius: 0.4em;
+    background: rgb(154, 170, 243);
+    color: #ffff;
+    cursor: pointer;
+    border: 0;
+    padding: 0.4em 0.4em;      
+}
+
+.checkout-section .btn {
+    margin-top: 0.5em;
+}
+
+.checkout-section {
+    width: 50%; 
+    margin: 0 auto;
+}
+
+.checkout-section label {    
+    font-weight: bold;
 }

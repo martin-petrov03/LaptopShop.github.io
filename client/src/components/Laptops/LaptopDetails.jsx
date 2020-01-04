@@ -3,10 +3,8 @@ import axios from 'axios';
 import { FaSpinner } from "react-icons/fa";
 import { IoMdAddCircle } from "react-icons/io";
 import { MdDelete } from "react-icons/md";
-import { graphql } from 'react-apollo';
 import Cookie from 'js-cookie';
 import './index.css';
-import { getLaptopsQuery } from '../../queries/queries';
 import { AuthContext } from '../../contexts/AuthContext';
 import {listContext} from '../../contexts/ShoppingCart';
 
@@ -34,18 +32,7 @@ const LaptopDetails = (props) => {
         'Content-Type': 'application/json',
         'token': context.token,
         'userId': userId
-    }
-
-    const addToCart = (event, laptopObj) => {        
-        console.log(laptopObj)
-        if(laptopObj) {
-            let checkouts = Cookie.get('checkouts');
-            checkouts += laptopObj
-            console.log(checkouts)            
-            Cookie.set('checkouts', checkouts)
-            props.history.push('/');
-        }
-    }
+    }    
 
     const deleteLaptop = (event) => {
         const laptopId = event.target.getAttribute('laptop');
@@ -65,8 +52,7 @@ const LaptopDetails = (props) => {
         return (<section className="message"><FaSpinner /></section>);
     } else {
         return laptops.map(laptop => {
-            const laptopId = laptop._id;
-            const laptopObj = laptop;
+            const laptopId = laptop._id;            
 
             if(laptopId === props.match.params.id) {
                 const price = laptop.price.toFixed(2);

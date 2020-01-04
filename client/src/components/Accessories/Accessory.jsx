@@ -4,19 +4,20 @@ import { FaSpinner } from "react-icons/fa";
 import './index.css';
 
 const Accessory = (props) => {
+    const accessories = props.data;    
+
     const displayAccessories = () => {
-        const data = props.data;
-        if(!data || (data.accessories && data.accessories.length === 0)) {
+        if(!accessories || (accessories && accessories.length === 0)) {
             return (<p className="message">No Accessories</p>)
-        } else if(data.loading) {
+        } else if(accessories.loading) {
             return (<section className="message"><FaSpinner /></section>);
         } else {
-            return data.accessories.map(accessory => {
+            return accessories.map(accessory => {
                 const price = accessory.price.toFixed(2);
-                const url = `/accessories/${accessory.id}`;
+                const url = `/accessories/${accessory._id}`;
                 
                 return (
-                    <Link to={url} className="accessory" key={accessory.id}>
+                    <Link to={url} className="accessory" key={accessory._id}>
                         <h1>{accessory.title}</h1>
                         <img src={accessory.url} alt={accessory.title} />
                         <p>{accessory.description}</p>

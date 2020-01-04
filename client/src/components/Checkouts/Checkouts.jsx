@@ -1,5 +1,4 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { graphql } from 'react-apollo';
 import { FaSpinner } from "react-icons/fa";
 import axios from 'axios';
 import './index.css';

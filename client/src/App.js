@@ -1,7 +1,5 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import ApolloClient from 'apollo-boost';
-import { ApolloProvider } from 'react-apollo';
 import Laptops from './components/Laptops/Laptops';
 import Login from './components/Login/Login';
 import Register from './components/Register/Register';
@@ -14,14 +12,9 @@ import LaptopDetails from './components/Laptops/LaptopDetails';
 import Checkouts from './components/Checkouts/Checkouts';
 import ShoppingCart from './components/ShoppingCart/ShoppingCart';
 
-//apollo setup
-const client = new ApolloClient({
-  uri: 'http://localhost:3001/graphql',
-})
-
 function App() {
   return (
-    <ApolloProvider client={client}>
+    <Fragment>    
       <Navbar />
       <Switch>
         <Route exact path="/" component={Laptops} />
@@ -34,9 +27,9 @@ function App() {
         <Route exact path="/laptops/:id" component={LaptopDetails} />
         <Route exact path="/checkouts/all" component={Checkouts} />
         <Route exact path="/shopping-cart" component={ShoppingCart} />
-        {/* <Route component={Error} /> */}
+        <Route component={Error} />
       </Switch>
-    </ApolloProvider>    
+    </Fragment>    
   );
 }
 

@@ -46,8 +46,7 @@ function ShoppingCart({children}){
           newList.push(newItem);
         }
         
-        setState({...appstate, cart:newList, cartCount:getCartCount()});
-        console.log(appstate)
+        setState({...appstate, cart:newList, cartCount:getCartCount()});        
     }
          
     function removePd(indx){

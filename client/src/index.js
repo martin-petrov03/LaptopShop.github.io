@@ -5,12 +5,15 @@ import * as serviceWorker from './serviceWorker';
 import './index.css';
 import App from './App';
 import AuthContextProvider from './contexts/AuthContext';
+import ShoppingCartProvider from './contexts/ShoppingCart';
 
 ReactDOM.render(
     <AuthContextProvider>
-        <Router>
-            <App />
-        </Router>
+        <ShoppingCartProvider>
+            <Router>
+                <App />
+            </Router>
+        </ShoppingCartProvider>
     </AuthContextProvider>
     , document.getElementById('root'));
 serviceWorker.unregister();

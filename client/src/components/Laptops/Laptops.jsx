@@ -1,17 +1,30 @@
-import React from 'react';
-import { graphql } from 'react-apollo';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import Laptop from './Laptop';
 import './index.css';
-import { getLaptopsQuery } from '../../queries/queries';
 
 const Laptops = (props) => {
+    const [laptops, setLaptops] = useState([]);
+
+    useEffect(() => {
+        const fetchData = () => {
+            axios.get('http://localhost:3001/laptops/all')
+                .then(res => {                      
+                    if(res.status === 200) {
+                        setLaptops(res.data.laptops);
+                    }
+                })                
+        }
+        fetchData();
+    }, []);
+
     return (
         <main className="laptops-container">            
             {
-                <Laptop data={props.data} />
+                <Laptop data={laptops} />
             }       
         </main>
     );    
 }
 
-export default graphql(getLaptopsQuery)(Laptops);
+export default Laptops;

@@ -26,7 +26,7 @@ const Checkouts = (props) => {
         axios.delete(`http://localhost:3001/checkouts/complete/${checkoutId}`)
             .then(res => {                        
                 if(res.status === 200) {
-                    props.history.push('/');     
+                    props.history.push('/');  
                 }
             })
             .catch(err => {
@@ -41,10 +41,15 @@ const Checkouts = (props) => {
     useEffect(() => {
         const fetchData = () => {
             axios.get('http://localhost:3001/checkouts/all')
-                .then(res => {                    
+                .then(res => {                      
                     if(res.status === 200) {
                         setCheckouts(res.data.checkouts);
                     } else if(res.status === 400) {
+                        props.history.push('/login');
+                    }
+                })
+                .catch(err => {                    
+                    if(err.response.status == 400 || err.response.status == 401) {
                         props.history.push('/login');
                     }
                 })

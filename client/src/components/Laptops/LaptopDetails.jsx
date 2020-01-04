@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import axios from 'axios';
 import { FaSpinner } from "react-icons/fa";
 import { IoMdAddCircle } from "react-icons/io";
@@ -8,17 +8,32 @@ import Cookie from 'js-cookie';
 import './index.css';
 import { getLaptopsQuery } from '../../queries/queries';
 import { AuthContext } from '../../contexts/AuthContext';
+import {listContext} from '../../contexts/ShoppingCart';
 
 const LaptopDetails = (props) => {
-    const  [laptops, setLaptops] = useState(props.data.laptops);
     const context = useContext(AuthContext);
+    const stt = useContext(listContext);
     const userId = Cookie.get('userId');
     const isAdmin = Cookie.get('isAdmin');
-        
+
+    const [laptops, setLaptops] = useState([]);
+
+    useEffect(() => {
+        const fetchData = () => {
+            axios.get('http://localhost:3001/laptops/all')
+                .then(res => {                      
+                    if(res.status === 200) {
+                        setLaptops(res.data.laptops);
+                    }
+                })                
+        }
+        fetchData();
+    }, []);
+
     axios.defaults.headers = {
         'Content-Type': 'application/json',
         'token': context.token,
-        'userId': context.userId
+        'userId': userId
     }
 
     const addToCart = (event, laptopObj) => {        
@@ -34,7 +49,6 @@ const LaptopDetails = (props) => {
 
     const deleteLaptop = (event) => {
         const laptopId = event.target.getAttribute('laptop');
-        
         if(laptopId) {
             axios.delete(`http://localhost:3001/laptops/delete/${laptopId}`)
             .then(res => {
@@ -51,13 +65,14 @@ const LaptopDetails = (props) => {
         return (<section className="message"><FaSpinner /></section>);
     } else {
         return laptops.map(laptop => {
-            const laptopId = laptop.id;
+            const laptopId = laptop._id;
             const laptopObj = laptop;
 
             if(laptopId === props.match.params.id) {
                 const price = laptop.price.toFixed(2);
-                let isAuthorized = isAdmin;                    
-                if(laptop && laptop.author && laptop.author.id  && laptop.author.id === userId) {
+                let isAuthorized = isAdmin;
+                   
+                if(laptop && laptop.author && laptop.author && laptop.author === userId) {
                     isAuthorized = true;
                 }
                 
@@ -68,10 +83,10 @@ const LaptopDetails = (props) => {
                         <p>{laptop.description}</p>
                         <h2>{price}&#x24;</h2>
                         {
-                            Cookie.get('token') ? <IoMdAddCircle className="submit-btn" onClick={() => addToCart(laptopObj)}>Add To Cart</IoMdAddCircle> : null
+                            Cookie.get('token') ? <IoMdAddCircle className="submit-btn" onClick={()=>stt.addNew(laptop)}>Add To Cart</IoMdAddCircle> : null
                         }
                         {               
-                            isAuthorized ? <MdDelete className="submit-btn" laptop={laptopId} onClick={deleteLaptop} /> : null
+                            isAuthorized ? <MdDelete className="submit-btn" onClick={deleteLaptop} laptop={laptopId} /> : null
                         }
                     </section>                        
                 );
@@ -81,4 +96,4 @@ const LaptopDetails = (props) => {
     }
 }
 
-export default graphql(getLaptopsQuery)(LaptopDetails);
+export default LaptopDetails;

@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import './index.css';
 import {listContext} from '../../contexts/ShoppingCart';
 
 function Cart(){
@@ -7,8 +8,8 @@ function Cart(){
     const cartlist = cart.map((i,index) => {
       return (
       <tr key={index}>
-        <td>{i.id}</td>
-        <td>{i.name}</td>
+        <td>{index}</td>
+        <td>{i.model}</td>
         <td>{'x'+i.count}</td>
         <td>{<Removebutton pd={i}/>}</td>
       </tr>
@@ -20,8 +21,7 @@ function Cart(){
             <div style={
                 {padding:'15px'}
             }>
-            <table className='c'>
-                
+            <table className='products-table'>            
                 <tr className='thead'>
                 <th>ID</th>
                 <th>Model</th>

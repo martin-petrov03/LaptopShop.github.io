@@ -42,7 +42,7 @@
     margin-top: 5em;
 }
 
-@media only screen and (max-width: 870px) {  
+@media only screen and (max-width: 1200px) {  
     .laptops-container {
         grid-template-columns: repeat(1, 1fr);        
     }

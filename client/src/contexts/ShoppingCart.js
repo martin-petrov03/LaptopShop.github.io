@@ -36,11 +36,11 @@ function ShoppingCart({children}){
         }
         
         const filtered = newList.filter(i =>{
-          return i.id === pd.id;
+          return i.id === pd._id;
         });
     
         if(filtered.length > 0){
-          const pos = newList.map(i => { return i.id; }).indexOf(pd.id);
+          const pos = newList.map(i => { return i.id; }).indexOf(pd._id);
           newList[pos].count += 1;
         }else{
           newList.push(newItem);

@@ -25,13 +25,15 @@ function Cart(){
     if(cart.length > 0){
         return (            
             <Fragment>
-                <table className='products-table'>            
-                    <tr className='thead'>
-                    <th>ID</th>
-                    <th>Model</th>
-                    <th>QUANTITY</th>              
-                    </tr>
-                    {cartList}
+                <table className='products-table'>
+                    <tbody>                    
+                        <tr className='thead'>
+                        <th>ID</th>
+                        <th>Model</th>
+                        <th>QUANTITY</th>              
+                        </tr>
+                        {cartList}
+                    </tbody>         
                 </table>            
                 <CheckoutSection />
             </Fragment>

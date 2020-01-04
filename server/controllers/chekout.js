@@ -8,21 +8,21 @@ const createCheckout = async(req, res) => {
     if(await isAuth(req, res)){
         try {
             const userId = req.headers.userid;
-            const { productName, quantity } = req.body;
+            const { fullName, address, productName, quantity } = req.body;
 
-            if(productName.length >= 5 && Number.isInteger(quantity) && (quantity >= 1 && quantity <= 10))
+            if(fullName.length >= 5 && address.length >= 5 && productName.length >= 5 && Number.isInteger(quantity) && (quantity >= 1 && quantity <= 10))
             {
                 const laptop = await Laptop.findOne({ model: productName });
                 const accessory = await Accessory.findOne({ title: productName });
 
                 if(laptop) {
-                    await Checkout.create({ productName, url: laptop.url, price: laptop.price, quantity, author: userId });
+                    await Checkout.create({ fullName, address, productName, url: laptop.url, price: laptop.price, quantity, author: userId });
                     res.status(200).json(
                     {
                         message: 'Checkout has been successfully created!',
                     });
                 } else if(accessory) {
-                    await Checkout.create({ productName, url: accessory.url, price: accessory.price, quantity, author: userId });
+                    await Checkout.create({ fullName, address, productName, url: accessory.url, price: accessory.price, quantity, author: userId });
                     res.status(200).json(
                     {
                         message: 'Checkout has been successfully created!',
@@ -40,8 +40,7 @@ const createCheckout = async(req, res) => {
                 });
             }
         }
-        catch(err) {
-            console.log(err);
+        catch(err) {            
             res.status(400).json(
             {
                 message: 'Cannot checkout!',

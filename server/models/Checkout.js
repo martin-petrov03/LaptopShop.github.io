@@ -2,6 +2,16 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const checkoutSchema = new Schema({
+  fullName: {
+    type: Schema.Types.String,
+    required: true,
+    minlength: 5
+  },
+  address: {
+    type: Schema.Types.String,
+    required: true,
+    minlength: 5
+  },
   productName: {
     type: Schema.Types.String,
     required: true,    

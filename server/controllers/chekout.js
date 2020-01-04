@@ -54,7 +54,6 @@ const returnCheckouts = async(req, res) => {
     if(await isAdmin(req, res) && await isAuth(req, res)){
         try{
             const checkouts = await Checkout.find();
-
             res.status(200)
                 .json({ message: 'Admin!', checkouts });
                 return;

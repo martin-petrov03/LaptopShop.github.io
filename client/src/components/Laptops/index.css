@@ -1,4 +1,12 @@
-.laptops-container {
+.filter {
+    margin: 2em 0;    
+}
+
+.filter input {
+    margin-right: 2em;
+}
+
+.laptops-container {    
     margin-top: 3em;
     display: grid;
     grid-template-columns: repeat(2, 1fr);

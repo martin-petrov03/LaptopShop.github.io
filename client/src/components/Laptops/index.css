@@ -1,9 +1,11 @@
 .filter {
-    margin: 2em 0;    
+    margin: 2em 0;
+    text-align: center;
 }
 
 .filter input {
-    margin-right: 2em;
+    text-align: center;
+    width: 12em;
 }
 
 .laptops-container {    
@@ -52,7 +54,8 @@
 
 @media only screen and (max-width: 1200px) {  
     .laptops-container {
-        grid-template-columns: repeat(1, 1fr);        
+        display: block;
+        margin: 0 2em;
     }
 
     .laptops-container .laptop  {
@@ -65,7 +68,7 @@
 }
 
 @media only screen and (max-width: 800px) {  
-    .laptops-container, .laptop-details {
-        margin-top: 15em;
+    .filter {
+        margin-top: 18em;
     }
 }

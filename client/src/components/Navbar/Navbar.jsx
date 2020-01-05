@@ -9,7 +9,17 @@ import Dropdown from './Dropdown';
 const Navbar = () => {
   const context = useContext(AuthContext);
   const [isOpen, setIsOpen] = useState(false);  
+  const [width, setWidth] = useState(0);
 
+  
+  const update = () => {
+    setWidth(window.innerWidth);
+    if(width <= 1200) {
+      setIsOpen(true);
+    }
+  };
+  window.addEventListener("resize", update);
+  
   const handleClick = () => {    
     setIsOpen(!isOpen);
   }

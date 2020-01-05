@@ -36,11 +36,11 @@ const Laptops = (props) => {
     return (
         <Fragment>
             <div className="filter">
-                <label htmlFor="model">Model: </label>
-                <input type="text" id="model" placeholder="Model" onChange={handleModelChange} />
-                <label htmlFor="min-price">Price: </label>
-                <input type="number" id="min-price" placeholder="Min" />
-                <input type="number" id="max-price" placeholder="Max" />
+                <label htmlFor="model">Model: </label><br/>
+                <input type="text" id="model" placeholder="Acer" onChange={handleModelChange} /><br/>
+                <label htmlFor="min-price">Price: </label><br/>
+                <input type="number" id="min-price" placeholder="400" /><br/>
+                <input type="number" id="max-price" placeholder="9999" />
             </div>
             <main className="laptops-container">            
                 {

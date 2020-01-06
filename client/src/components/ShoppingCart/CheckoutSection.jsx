@@ -29,19 +29,20 @@ function CheckoutSection (props) {
             setError('Address should be at least 5 characters!');
         } else {
             let isCorrect = true;
-            props.cart.map(product => {              
-                axios.post('http://localhost:3001/checkouts/add', { fullName, address, productName: product.model, quantity: product.count })                
-                .catch(err => {                    
+            props.cart.filter(product => {              
+                axios.post('http://localhost:3001/checkouts/add', { fullName, address, productName: product.model, quantity: product.count })
+                .catch(err => {
                     isCorrect = false;
-                })
+                });
+                return null;
             });
             
-            if(isCorrect) {                                
-                removeAll();                              
+            if(isCorrect) {
+                removeAll();
             } else {
-                setError('Invalid!');
+                return false;
             }
-        }        
+        }
     }
 
     return (

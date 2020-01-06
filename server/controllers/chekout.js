@@ -53,18 +53,22 @@ const returnCheckouts = async(req, res) => {
     if(await isAdmin(req, res) && await isAuth(req, res)){
         try{
             const checkouts = await Checkout.find();
-            res.status(200)
-                .json({ message: 'Admin!', checkouts });
-                return;
-        }
-        catch{
-            res.status(500)
-                .json({ message: 'Cannot get checkouts!' });
+            res.status(200).json({ 
+                message: 'Admin!', checkouts
+            });
             return;
         }
+        catch{
+            res.status(500).json({ 
+                message: 'Cannot get checkouts!'
+            });
+            return;
+        }
+    } else {        
+        res.status(400).json({
+            message: 'Not Authorized!'
+        });        
     }
-    res.status(400)
-        .json({ message: 'Not Authorized!' });
 }
 
 const completeCheckout = async(req, res) => {
@@ -74,23 +78,28 @@ const completeCheckout = async(req, res) => {
             const checkout = await Checkout.findById(checkoutId);
             
             if(!checkout) {
-                res.status(400)
-                    .json({ message: 'Cannot find the checkout!' });                
+                res.status(400).json({ 
+                    message: 'Cannot find the checkout!'
+                });                
                 return;
             }
             checkout.remove();
             res.status(200)
-                .json({ message: 'Checkout deleted successfully!' });
+                .json({
+                    message: 'Checkout deleted successfully!'
+                });
             return;
         }
         catch{
-            res.status(400)
-                .json({ message: 'Cannot find the checkout!' });                
+            res.status(400).json({
+                message: 'Cannot find the checkout!'
+            });                
             return;
         }
     }
-    res.status(400)
-        .json({ message: 'Not Authorized!' });
+    res.status(400).json({
+        message: 'Not Authorized!'
+    });
 }
 
 module.exports = {

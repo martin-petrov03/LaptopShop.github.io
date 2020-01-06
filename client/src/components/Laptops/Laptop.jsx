@@ -11,7 +11,7 @@ const Laptop = (props) => {
             return (<p className="message">No Laptops</p>)
         } else if(laptops.loading) {
             return (<section className="message"><FaSpinner /></section>);
-        } else {
+        } else {            
             return laptops.map(laptop => {                
                 const price = laptop.price.toFixed(2);
                 const url = `/laptops/${laptop._id}`;

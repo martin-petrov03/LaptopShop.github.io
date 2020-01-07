@@ -16,11 +16,11 @@ const Laptops = (props) => {
                 })
         }
         fetchData();
-    });
+    }, []);
 
     return (
         <Fragment>
-            <main className="laptops-container">                
+            <main className="laptops-container">
                 <Laptop data={laptops} />
             </main>
         </Fragment>

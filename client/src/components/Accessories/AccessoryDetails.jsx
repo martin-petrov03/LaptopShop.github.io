@@ -36,7 +36,7 @@ const AccessoryDetails = (props) => {
 
     const deleteAccessory = (event) => {
         const accessoryId = event.target.getAttribute('accessory');
-        console.log(accessoryId)
+        
         if(accessoryId) {
             axios.delete(`http://localhost:3001/accessories/delete/${accessoryId}`)
             .then(res => {

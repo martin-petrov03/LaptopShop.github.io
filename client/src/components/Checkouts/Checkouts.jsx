@@ -1,20 +1,19 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaSpinner } from "react-icons/fa";
 import axios from 'axios';
+import Cookie from 'js-cookie';
 import './index.css';
 import Error from '../Error/Error';
-import { AuthContext } from '../../contexts/AuthContext';
 
-const Checkouts = (props) => {
-    const context = useContext(AuthContext);
+const Checkouts = (props) => {    
     const [checkouts, setCheckouts] = useState([]);
     const [error, setError] = useState('');    
 
     axios.defaults.headers = {
         'Content-Type': 'application/json',
-        'token': context.token, 
-        'userId': context.userId
-    }    
+        'token': Cookie.get('token'), 
+        'userId': Cookie.get('userId')
+    }
 
     const completeCheckout = (event) => {
         const checkoutId = event.target.getAttribute('checkout');

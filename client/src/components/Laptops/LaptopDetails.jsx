@@ -5,12 +5,11 @@ import { IoMdAddCircle } from "react-icons/io";
 import { MdDelete } from "react-icons/md";
 import Cookie from 'js-cookie';
 import './index.css';
-import { AuthContext } from '../../contexts/AuthContext';
 import {listContext} from '../../contexts/ShoppingCart';
 
-const LaptopDetails = (props) => {
-    const context = useContext(AuthContext);
+const LaptopDetails = (props) => {    
     const stt = useContext(listContext);
+    const token = Cookie.get('token');
     const userId = Cookie.get('userId');
     const isAdmin = Cookie.get('isAdmin');
 
@@ -30,7 +29,7 @@ const LaptopDetails = (props) => {
 
     axios.defaults.headers = {
         'Content-Type': 'application/json',
-        'token': context.token,
+        'token': token,
         'userId': userId
     }    
 
@@ -38,10 +37,8 @@ const LaptopDetails = (props) => {
         const laptopId = event.target.getAttribute('laptop');
         if(laptopId) {
             axios.delete(`http://localhost:3001/laptops/delete/${laptopId}`)
-            .then(res => {
-                if(res.status === 200) {
-                    props.history.push('/');
-                }
+            .then(res => {                
+                props.history.push('/');                
             });
         }
     }

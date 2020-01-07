@@ -16,8 +16,7 @@ const Login = (props) => {
     Cookie.set('token', '');
     Cookie.set('username', '');
     Cookie.set('userId', '');
-    Cookie.set('isAdmin', '');
-    Cookie.set('checkouts', '');
+    Cookie.set('isAdmin', '');    
   }
 
   const handleSubmit = (event) => {

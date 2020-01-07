@@ -64,10 +64,10 @@ const returnCheckouts = async(req, res) => {
             });
             return;
         }
-    } else {        
+    } else {             
         res.status(400).json({
             message: 'Not Authorized!'
-        });        
+        });
     }
 }
 

@@ -66,10 +66,10 @@ const LaptopDetails = (props) => {
                         <p>{laptop.description}</p>
                         <h2>{price}&#x24;</h2>
                         {
-                            Cookie.get('token') ? <IoMdAddCircle className="submit-btn" onClick={()=>stt.addNew(laptop)}>Add To Cart</IoMdAddCircle> : null
+                            Cookie.get('token') ? <IoMdAddCircle className="submit-btn add-to-cart" onClick={()=>stt.addNew(laptop)}>Add To Cart</IoMdAddCircle> : null
                         }
                         {               
-                            isAuthorized ? <MdDelete className="submit-btn" onClick={deleteLaptop} laptop={laptopId} /> : null
+                            isAuthorized ? <MdDelete className="submit-btn delete0laptop" onClick={deleteLaptop} laptop={laptopId} /> : null
                         }
                     </section>                        
                 );

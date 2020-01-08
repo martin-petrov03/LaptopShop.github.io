@@ -34,5 +34,5 @@ describe('Tests main functionalities', () => {
       .should(($arrOfCheckouts) => {
         expect($arrOfCheckouts.length).to.be.greaterThan(0)
       })
-  });
+  });  
 });

@@ -10,7 +10,7 @@ function Cart(props){
     const cartList = cart.map((i,index) => {       
 
         return (
-            <tr key={index}>
+            <tr key={index} className="tbody">
                 <td>{index}</td>
                 <td>{i.model}</td>
                 <td>{'x' + i.count}</td>        

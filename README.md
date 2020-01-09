@@ -17,6 +17,7 @@ Laptop Shop uses a number of open source projects to work:
 The aim of this project is to show how to build a full stack application with MERN stack. In this project I've used:
 
 * JWT authentication
+* Unit testing
 * Rest API
 * GraphQL
 * React Hooks

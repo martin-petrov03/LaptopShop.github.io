@@ -1,7 +1,5 @@
 # Laptop Shop
 
-[![Logo](https://thumbs.dreamstime.com/z/laptop-line-icon-mobile-computer-outline-vector-logo-linear-pi-pictogram-isolated-white-pixel-perfect-illustration-95987744.jpg)]
-
 ### Description
 
 Laptop Shop it's a single page application (SPA) that lets you buy laptops and accessories. You can choose from wide range of products. When you are login you can also add your own products. 

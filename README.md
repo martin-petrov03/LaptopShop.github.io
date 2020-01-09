@@ -35,7 +35,7 @@ $ cd server
 $ start-mongodb
 ```
 
-Install the dependencies and start the server (port: 8000)
+Install the dependencies and start the server (port: 3001)
 
 ```sh
 $ cd server

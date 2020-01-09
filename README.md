@@ -32,7 +32,7 @@ Install MongoDB and start the database (port: 27017)
 
 ```sh
 $ cd server
-$ start-mongodb
+$ mongodb
 ```
 
 Install the dependencies and start the server (port: 3001)
@@ -67,7 +67,7 @@ $ npm start
     - Finish checkout
 
 - Admin users    
-    - Delete all products
+    - Delete each product
     - View all checkouts
     - Complete checkout    
 

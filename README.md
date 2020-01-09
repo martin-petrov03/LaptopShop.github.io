@@ -64,6 +64,7 @@ $ npm start
     - Add your own accessory
     - Delete products, which you have created
     - Add products in shopping cart
+    - Manage products in the shopping cart
     - Finish checkout
 
 - Admin users    

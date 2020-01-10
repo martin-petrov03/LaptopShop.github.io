@@ -1,0 +1,77 @@
+#notfound {    
+    position: relative;
+    height: 100vh;    
+}
+
+#notfound .notfound {    
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    -webkit-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+}
+
+.notfound {    
+    max-width: 767px;
+    width: 100%;
+    line-height: 1.4;
+    /* padding: 110px 40px; */
+    text-align: center;
+    background: #fff;
+}
+
+.notfound .notfound-404 {    
+    position: relative;
+    height: 100px;
+}
+
+.notfound .notfound-404 h1 {    
+    position: absolute;
+    left: 50%;
+    top: 20%;
+    -webkit-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+    font-size: 165px;
+    font-weight: 700;
+    margin: 0px;
+    color: #262626;
+    text-transform: uppercase;
+}
+
+.notfound .notfound-404 h1>span {
+    color: #00b7ff;
+}
+
+.notfound h2 {
+    font-family: 'Roboto', sans-serif;
+    font-size: 22px;
+    font-weight: 400;
+    text-transform: uppercase;
+    color: #151515;    
+}
+
+@media only screen and (max-width: 767px) {
+    .notfound h2 {
+        font-size: 18px;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .notfound .notfound-404 h1 {
+        font-size: 141px;
+    }
+}
+
+@media only screen and (max-width: 1150px) {
+    .notfound {
+        margin-top: 10em;
+    }
+}
+
+@media only screen and (max-width: 650px) {
+    .notfound {
+        margin-top: -7em;
+    }
+}

@@ -11,6 +11,7 @@ import AccessoryDetails from './components/Accessories/AccessoryDetails';
 import LaptopDetails from './components/Laptops/LaptopDetails';
 import Checkouts from './components/Checkouts/Checkouts';
 import ShoppingCart from './components/ShoppingCart/ShoppingCart';
+import NotFound from './components/NotFound/NotFound';
 
 function App() {
   return (
@@ -27,9 +28,9 @@ function App() {
         <Route exact path="/laptops/:id" component={LaptopDetails} />
         <Route exact path="/checkouts/all" component={Checkouts} />
         <Route exact path="/shopping-cart" component={ShoppingCart} />
-        <Route component={Error} />
+        <Route component={NotFound} />
       </Switch>
-    </Fragment>    
+    </Fragment>
   );
 }
 

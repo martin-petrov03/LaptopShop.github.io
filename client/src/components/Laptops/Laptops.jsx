@@ -25,6 +25,6 @@ const Laptops = (props) => {
             </main>
         </Fragment>
     );    
-}
+};
 
-export default Laptops;
+export default React.memo(Laptops);

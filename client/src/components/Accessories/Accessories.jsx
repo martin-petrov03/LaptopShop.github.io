@@ -27,4 +27,4 @@ const Accessories = (props) => {
     );    
 }
 
-export default Accessories;
+export default React.memo(Accessories);

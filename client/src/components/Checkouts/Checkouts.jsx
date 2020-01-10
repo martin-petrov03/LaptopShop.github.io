@@ -85,4 +85,4 @@ const Checkouts = (props) => {
     }    
 }
 
-export default Checkouts;
+export default React.memo(Checkouts);

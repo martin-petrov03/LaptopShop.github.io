@@ -9,7 +9,7 @@ const checkoutsRoutes = require('./routes/checkouts');
 const accessoriesRoutes = require('./routes/accessories');
 
 require('./database/database')();
-const port = 3001;
+const port = process.env.PORT || 3001;
 const app = express();
 
 app.use(cors());

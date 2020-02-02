@@ -15,11 +15,11 @@
   margin-left: 1.5em;
 }
 
-.nav .menu-icon {
+.drop-down-content {
   display: none;
 }
 
-.nav ul{
+.nav > ul{
   display: flex;
   justify-content: space-between;
   list-style: none;
@@ -27,58 +27,26 @@
   margin-left: auto;
 }
 
-.nav ul li a {
+.nav > ul li a {
   font-size: 1.2em;
   text-decoration: none;
   color: rgb(0, 0, 0);
   padding: 1em;
 }
   
-.nav ul li a:hover {    
+.nav > ul li a:hover {    
     background-color: #d8d8d8;    
     border: 0;
     padding: 1em;
 }
 
-@media only screen and (min-width: 1200px) {
+@media only screen and (max-width: 1200px) {
+  .nav > ul {
+    display: none;
+  }
+
   .drop-down-content {
-    display: none;
-  }
-}
-
-@media only screen and (max-width: 1050px) {  
-  .nav .site-logo {
-    font-size: 1.5em;
-  }
-
-  .nav ul {
-    margin: 0.4em 0.5em;
-    margin-left: auto;
-  }
-
-  .nav ul li a {
-    font-size: 1em;
-  }
-}
-
-@media only screen and (max-width: 1200px) {  
-  .nav .menu-icon {
     display: block;
-    font-size: 2em;
-    margin: 0.2em 0;
-    margin-left: auto;
-    padding: 0 1em;
-  }
-
-  .nav ul {
-    display: none;
-  }
-
-  .nav .menu-icon:hover .nav ul{
-    display: block;
-    position: absolute;
-    width: 100%;
-    background: rgb(226, 226, 226);
   }
 }
 

@@ -53,7 +53,7 @@ const Checkouts = (props) => {
                 })
         }
         fetchData();
-    }, []);
+    }, [props.history]);
 
     if(checkouts.length === 0) {
         return (<p className="message checkout">No Checkouts</p>)

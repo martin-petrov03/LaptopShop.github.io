@@ -1,6 +1,5 @@
-import React, { Fragment, useState, useContext } from 'react';
+import React, { Fragment, useState, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { IoIosMenu } from "react-icons/io";
 import Cookie from 'js-cookie';
 import './index.css';
 import { AuthContext } from '../../contexts/AuthContext';
@@ -10,19 +9,19 @@ const Navbar = () => {
   const context = useContext(AuthContext);
   const [isOpen, setIsOpen] = useState(false);  
   const [width, setWidth] = useState(0);
-
   
+  useEffect(() => {
+    update();
+  });
+
   const update = () => {
     setWidth(window.innerWidth);
     if(width <= 1200) {
-      setIsOpen(true);
+      setIsOpen(true);      
     }
-  };
-  window.addEventListener("resize", update);
-  
-  const handleClick = () => {    
-    setIsOpen(!isOpen);
-  }
+  };  
+
+  window.addEventListener("resize", update);  
 
   const logout = () => {
     const { logout } = context;
@@ -42,14 +41,14 @@ const Navbar = () => {
 
   return (
     <nav className="nav">
-      <Link to="/" className="site-logo">LaptopShop</Link>
-      <IoIosMenu className="menu-icon" onClick={handleClick} />
+      <Link to="/" className="site-logo">LaptopShop</Link>      
       <div className="drop-down-content">
       {
-        isOpen ?(
-          <Dropdown isOpen={isOpen} isAdmin={isAdmin} logout={logout} />
+        isOpen 
+        ?(          
+          <Dropdown isAdmin={isAdmin} logout={logout} />
         )
-        :false
+        :null
       }
       </div>
 

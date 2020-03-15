@@ -41,6 +41,7 @@ const AddLaptop = (props) => {
                   return;
                 } else if (err.response.status === 401) {
                   props.history.push('/login');
+                  Cookie.set('token', '');
                   return;
                 }
                 setError('Invalid!');

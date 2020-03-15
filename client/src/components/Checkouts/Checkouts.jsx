@@ -31,6 +31,10 @@ const Checkouts = (props) => {
                 if(err.response.status === 400) {
                     setError('Cannot delete checkout!');
                     return;
+                } else if (err.response.status === 401) {
+                    props.history.push('/login');
+                    Cookie.set('token', '');
+                    return;
                 }
                 setError('Invalid!');
             })
@@ -42,13 +46,12 @@ const Checkouts = (props) => {
                 .then(res => {                      
                     if(res.status === 200) {
                         setCheckouts(res.data.checkouts);
-                    } else if(res.status === 400) {
-                        props.history.push('/login');
                     }
                 })
                 .catch(err => {                    
                     if(err.response.status === 400 || err.response.status === 401) {
                         props.history.push('/login');
+                        Cookie.set('token', '');
                     }
                 })
         }

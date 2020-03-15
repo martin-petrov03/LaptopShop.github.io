@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { Redirect } from 'react-router-dom';
 import axios from 'axios';
+import Cookie from 'js-cookie';
 import './index.css';
 import Error from '../Error/Error';
 import { AuthContext } from '../../contexts/AuthContext';
@@ -40,6 +41,7 @@ const AddAccessories = (props) => {
                         return;
                       } if(err.response.status === 401) {
                         props.history.push('/login');
+                        Cookie.set('token', '');
                       }
                       setError('Invalid!');
                     })

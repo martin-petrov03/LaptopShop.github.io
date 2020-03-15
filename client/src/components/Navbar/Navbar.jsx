@@ -17,7 +17,7 @@ const Navbar = () => {
   const update = () => {
     setWidth(window.innerWidth);
     if(width <= 1200) {
-      setIsOpen(true);      
+      setIsOpen(true);
     }
   };  
 

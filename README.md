@@ -2,7 +2,7 @@
 
 ### Description
 
-Laptop Shop it's a single page application (SPA) that lets you buy laptops and accessories. You can choose from wide range of products. When you are login you can also add your own products. 
+Laptop Shop is a single page application (SPA) that lets you buy laptops and accessories. You can choose from wide range of products. When you are login you can also add your own products. 
 
 ### Tech
 

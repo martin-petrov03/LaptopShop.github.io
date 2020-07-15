@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useEffect } from 'react';
-import axios from 'axios';
+import laptopService from '../../services/laptop-service';
 import Laptop from './Laptop';
 import './index.css';
 
@@ -7,15 +7,11 @@ const Laptops = (props) => {
     const [laptops, setLaptops] = useState([]);        
 
     useEffect(() => {
-        const fetchData = () => {
-            axios.get('http://localhost:3001/laptops/all')
-                .then(res => {
-                    if(res.status === 200) {
-                        setLaptops(res.data.laptops);
-                    }
-                })
-        }
-        fetchData();
+        laptopService.load()
+            .then(laptops => {
+                console.log(laptops);
+                setLaptops(laptops);
+            });
     }, []);
 
     return (

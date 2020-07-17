@@ -1,82 +1,63 @@
 import React, { useState, useContext, useEffect } from 'react';
-import axios from 'axios';
 import { FaSpinner } from "react-icons/fa";
 import { IoMdAddCircle } from "react-icons/io";
 import { MdDelete } from "react-icons/md";
 import Cookie from 'js-cookie';
 import './index.css';
+import laptopService from '../../services/laptop-service';
 import {listContext} from '../../contexts/ShoppingCart';
 
-const LaptopDetails = (props) => {    
+const LaptopDetails = (props) => {
     const stt = useContext(listContext);
-    const token = Cookie.get('token');
     const userId = Cookie.get('userId');
+    const laptopId = props.match.params.id;    
     const isAdmin = Cookie.get('isAdmin');
-
-    const [laptops, setLaptops] = useState([]);
-
-    useEffect(() => {
-        const fetchData = () => {
-            axios.get('http://localhost:3001/laptops/all')
-                .then(res => {                      
-                    if(res.status === 200) {
-                        setLaptops(res.data.laptops);
-                    }
-                })                
-        }
-        fetchData();
-    }, []);
-
-    axios.defaults.headers = {
-        'Content-Type': 'application/json',
-        'token': token,
-        'userId': userId
-    }    
-
-    const deleteLaptop = (event) => {
-        const laptopId = event.target.getAttribute('laptop');
-        if(laptopId) {
-            axios.delete(`http://localhost:3001/laptops/delete/${laptopId}`)
-            .then(res => {                
-                props.history.push('/');                
-            });
-        }
-    }
+    let isAuthorized = isAdmin;
+    let isAuth = Cookie.get('token');
     
-    if(!laptops || laptops.length === 0) {
-        return (<p className="message">Not Found</p>)
-    } else if(laptops.loading) {
-        return (<section className="message"><FaSpinner /></section>);
-    } else {
-        return laptops.map(laptop => {
-            const laptopId = laptop._id;            
+    const [laptop, setLaptop] = useState([]);
 
-            if(laptopId === props.match.params.id) {
-                const price = laptop.price.toFixed(2);
-                let isAuthorized = isAdmin;
-                   
-                if(laptop && laptop.author && laptop.author && laptop.author === userId) {
+    useEffect(() => {        
+        laptopService.loadLaptopById(laptopId)
+            .then(laptop => {
+                laptop.price = laptop.price.toFixed(2);
+                setLaptop(laptop);
+                console.log(laptop);
+                if(laptop.author === userId) {
                     isAuthorized = true;
                 }
-                
-                return (
-                    <section className="laptop laptop-details" key={laptopId}>
-                        <h1>{laptop.title}</h1>
-                        <img src={laptop.url} alt={laptop.title} />
-                        <p>{laptop.description}</p>
-                        <h2>{price}&#x24;</h2>
-                        {
-                            Cookie.get('token') ? <IoMdAddCircle className="submit-btn add-to-cart" onClick={()=>stt.addNew(laptop)}>Add To Cart</IoMdAddCircle> : null
-                        }
-                        {               
-                            isAuthorized ? <MdDelete className="submit-btn delete0laptop" onClick={deleteLaptop} laptop={laptopId} /> : null
-                        }
-                    </section>                        
-                );
-            }
-            return null;
-        });
+            });
+    }, []);
+
+    const deleteLaptop = (event) => {        
+        laptopService.delete(laptopId)
+            .then((status) => {
+                if (status === 401) {
+                    props.history.push('/login');
+                    return;
+                }
+                props.history.push('/');
+            })
     }
+    
+    if(laptop.loading) {
+        return (<section className="message"><FaSpinner /></section>);
+    }
+
+    return (
+        <section className="laptop laptop-details" key={laptop.id}>
+            <h1>{laptop.title}</h1>
+            <img src={laptop.url} alt={laptop.title} />
+            <p>{laptop.description}</p>
+            <h2>{laptop.price}&#x24;</h2>
+            {
+                isAuth ? <IoMdAddCircle className="submit-btn add-to-cart" onClick={()=>stt.addNew(laptop)}>Add To Cart</IoMdAddCircle> : null
+            }
+            {               
+                isAuthorized ? <MdDelete className="submit-btn delete0laptop" onClick={deleteLaptop} laptop={laptop.id} /> : null
+            }
+        </section>    
+    );
 }
 
 export default LaptopDetails;

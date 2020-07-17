@@ -12,35 +12,35 @@ axios.defaults.headers = {
 
 const laptopService = {
     load: async() => {
-        const res = await axios.get('http://localhost:3001/laptops/all');
+        const res = await axios.get('http://localhost:3001/accessories/all');
         
         if(res.status === 200) {
-            return res.data.laptops;
+            return res.data.accessories;
         }
         return null;
     },
-    loadLaptopById: async(id) => {
-        const res = await axios.get('http://localhost:3001/laptops/' + id);
+    loadAccessoryById: async(id) => {
+        const res = await axios.get('http://localhost:3001/accessories/' + id);
         
         if(res.status === 200) {
-            return res.data.laptop;
+            return res.data.accessory;
         }
         return null;
     },
     delete: async(id) => {
-        let res;
+        let res;        
         try {
-            res = await axios.delete(`http://localhost:3001/laptops/delete/${id}`);;        
+            res = await axios.delete(`http://localhost:3001/accessories/delete/${id}`);
         }
-        catch(err) {            
+        catch(err) {
             return err.response.status;
         }
         return res.status;        
     },
-    add: async(model, url, description, price) => {        
+    add: async(title, url, description, price) => {        
         let res;
         try {
-            res = await axios.post('http://localhost:3001/laptops/add', { model, url, description, price });        
+            res = await axios.post('http://localhost:3001/accessories/add', { title, url, description, price });   
         }
         catch(err) {            
             return err.response.status;

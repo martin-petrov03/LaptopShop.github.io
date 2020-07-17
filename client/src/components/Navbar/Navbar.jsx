@@ -57,9 +57,7 @@ const Navbar = () => {
           context.isAuthenticated ?(
             <Fragment>
               <li><Link to="/">Laptops</Link></li>
-              <li><Link to="/accessories">Accessories</Link></li>
-              <li><Link to="/laptops/add">Add Laptop</Link></li>
-              <li><Link to="/accessories/add">Add Accessories</Link></li>
+              <li><Link to="/accessories">Accessories</Link></li> 
               {isAdmin()}
               <li><Link to="/shopping-cart">Shopping Cart</Link></li>
               <li><Link to="" onClick={logout}>Logout</Link></li>

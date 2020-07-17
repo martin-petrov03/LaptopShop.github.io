@@ -1,10 +1,12 @@
 import React, { Fragment, useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { IoMdAddCircle } from "react-icons/io";
 import laptopService from '../../services/laptop-service';
 import Laptop from './Laptop';
 import './index.css';
 
 const Laptops = (props) => {
-    const [laptops, setLaptops] = useState([]);        
+    const [laptops, setLaptops] = useState([]);
 
     useEffect(() => {
         laptopService.load()
@@ -16,6 +18,7 @@ const Laptops = (props) => {
 
     return (
         <Fragment>
+            <Link to="/laptops/add" className="add-link"><IoMdAddCircle fontSize="3em"></IoMdAddCircle></Link>
             <main className="laptops-container">
                 <Laptop data={laptops} />
             </main>

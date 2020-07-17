@@ -1,9 +1,13 @@
 .laptops-container {    
-    margin-top: 8em;
+    margin-top: 5em;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     justify-items: center;
     justify-content: space-between;
+}
+
+.add-link {
+    margin-top: 5em;
 }
 
 .laptops-container .laptop {    

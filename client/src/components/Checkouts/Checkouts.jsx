@@ -1,30 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { FaSpinner } from "react-icons/fa";
-import axios from 'axios';
-import Cookie from 'js-cookie';
 import './index.css';
+import checkoutService from '../../services/checkout-service';
 import Error from '../Error/Error';
 
-const Checkouts = (props) => {    
+const Checkouts = (props) => {
     const [checkouts, setCheckouts] = useState([]);
-    const [error, setError] = useState('');    
-
-    axios.defaults.headers = {
-        'Content-Type': 'application/json',
-        'token': Cookie.get('token'), 
-        'userId': Cookie.get('userId')
-    }
+    const [error, setError] = useState('');
 
     const completeCheckout = (event) => {
         const checkoutId = event.target.getAttribute('checkout');
         if(checkoutId === '') {
             return;
-        }        
+        }
 
-        axios.delete(`http://localhost:3001/checkouts/complete/${checkoutId}`)
-            .then(res => {                        
+        checkoutService.complete(checkoutId)
+            .then(res => { 
                 if(res.status === 200) {
-                    props.history.push('/');  
+                    props.history.push('/');
                 }
             })
             .catch(err => {
@@ -32,8 +25,7 @@ const Checkouts = (props) => {
                     setError('Cannot delete checkout!');
                     return;
                 } else if (err.response.status === 401) {
-                    props.history.push('/login');
-                    Cookie.set('token', '');
+                    props.history.push('/login');                    
                     return;
                 }
                 setError('Invalid!');
@@ -41,21 +33,15 @@ const Checkouts = (props) => {
     }
 
     useEffect(() => {
-        const fetchData = () => {
-            axios.get('http://localhost:3001/checkouts/all')
-                .then(res => {                      
-                    if(res.status === 200) {
-                        setCheckouts(res.data.checkouts);
-                    }
-                })
-                .catch(err => {                    
-                    if(err.response.status === 400 || err.response.status === 401) {
-                        props.history.push('/login');
-                        Cookie.set('token', '');
-                    }
-                })
-        }
-        fetchData();
+        checkoutService.load()
+            .then(checkouts => {
+                setCheckouts(checkouts);
+            })
+            .catch(err => {                    
+                if(err.response.status === 401) {
+                    props.history.push('/login');                    
+                }
+            })        
     }, [props.history]);
 
     if(checkouts.length === 0) {

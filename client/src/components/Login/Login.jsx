@@ -1,64 +1,47 @@
 import React, { useState, useContext } from 'react';
-import axios from 'axios';
-import Cookie from 'js-cookie';
 import './index.css';
 import Error from '../Error/Error';
 import { AuthContext } from '../../contexts/AuthContext';
+import authService from '../../services/auth-service';
+import validate from './validator';
 
 const Login = (props) => {
-  const context = useContext(AuthContext);  
+  const context = useContext(AuthContext);
+  const { login } = context;
   const [error, setError] = useState('');
   const [inputs, setInputs] = useState({});
   
   const logout = () => {
+    authService.logout();
     const { logout } = context;
     logout();
-    Cookie.set('token', '');
-    Cookie.set('username', '');
-    Cookie.set('userId', '');
-    Cookie.set('isAdmin', '');    
   }
 
   const handleSubmit = (event) => {
+    event.preventDefault();
     setError('');
     logout();
-    event.preventDefault();
     const email = inputs.email;
     const password = inputs.password;
-    const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    const validationMessage = validate(email, password);
+    const isCorrect = validationMessage === '';
 
-    if(email && email.length >= 5) {
-      if(emailRegex.test(email)) {
-        if(password && password.length >= 5) {
-  
-          axios.post('http://localhost:3001/auth/signin', { email, password })
-            .then(res => {
-              if(res.status === 200 && res.data.token) {
-                Cookie.set('username', res.data.username);
-                Cookie.set('userId', res.data.userId);
-                Cookie.set('token', res.data.token);                
-              
-                if(res.data.isAdmin === true) { 
-                  Cookie.set('isAdmin', res.data.isAdmin);
-                }
-                const { login } = context;
-                login();                           
-                props.history.push('/');            
-              }
-            })
-            .catch(err => {
-              setError('Invalid login!');
-            })
-        } else {
-          setError('Password should be at least 5 characters!');
-        }
-      } else {
-        setError('Invalid email!');
-      }
+    if(isCorrect) {
+      authService.login(email, password)
+        .then(res => {
+          if(res.status === 200 && res.data.token) {                
+            login();
+            props.history.push('/');            
+          }
+        })
+        .catch(err => {
+          setError('Invalid login!');
+        });
     } else {
-        setError('E-Mail should be at least 5 characters!');
-    }
+      setError(validationMessage);
+    }    
   }
+
   const handleChange = (event) => {
     event.persist();
     setInputs(inputs => ({...inputs, [event.target.name]: event.target.value}));

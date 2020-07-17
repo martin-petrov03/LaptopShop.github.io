@@ -1,21 +1,15 @@
 import React, { useState, useContext } from 'react';
 import { Redirect } from 'react-router-dom';
-import axios from 'axios';
-import Cookie from 'js-cookie';
 import './index.css';
 import Error from '../Error/Error';
 import { AuthContext } from '../../contexts/AuthContext';
+import laptopService from '../../services/laptop-service';
+import validator from './validatator';
 
 const AddLaptop = (props) => {
   const context = useContext(AuthContext);
   const [error, setError] = useState('');
   const [inputs, setInputs] = useState({});
-
-  axios.defaults.headers = {
-    'Content-Type': 'application/json',
-    'token': Cookie.get('token'),
-    'userId': Cookie.get('userId')
-  }
 
   const handleSubmit = (event) => {
     setError('');
@@ -25,39 +19,28 @@ const AddLaptop = (props) => {
     const description = inputs.description;
     const price = Number(inputs.price);
 
-    if (model && model.length >= 5 && model.length <= 20) {
-      if (url && url.length >= 5 && url.startsWith('http')) {
-        if (description && description.length >= 10) {
-          if (price && price >= 0.01 && price <= 9999.99) {
-            axios.post('http://localhost:3001/laptops/add', { model, url, description, price })
-              .then(res => {
-                if (res.status === 201) {
-                  props.history.push('/');
-                }
-              })
-              .catch(err => {
-                if (err.response.status === 409) {
-                  setError('Laptop already exists!');
-                  return;
-                } else if (err.response.status === 401) {
-                  props.history.push('/login');
-                  Cookie.set('token', '');
-                  return;
-                }
-                setError('Invalid!');
-              })
-          } else {
-            setError('Invalid price!');
-          }
-        } else {
-          setError('Description should be at least 10 characters!');
-        }
-      } else {
-        setError('Invalid url!');
-      }
-    } else {
-      setError('Model should be between 5 and 20 characters!');
+    const validationMessage = validator(model, url, description, price);
+    const isCorrect = validationMessage === '';
+
+    if(!isCorrect) {
+      setError(validationMessage);
     }
+
+    if(isCorrect) {      
+      laptopService.add(model, url, description, price)
+        .then((status) => {
+          if (status === 201) {
+            props.history.push('/');
+          } else if (status === 409) {
+            setError('Laptop already exists!');
+            return;
+          } else if (status === 401) {        
+            props.history.push('/login');            
+            return;
+          }
+          setError('Invalid!');
+        });             
+    }    
   }
 
   const handleChange = (event) => {

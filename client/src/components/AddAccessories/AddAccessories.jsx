@@ -1,8 +1,8 @@
 import React, { useState, useContext } from 'react';
 import { Redirect } from 'react-router-dom';
-import axios from 'axios';
-import Cookie from 'js-cookie';
 import './index.css';
+import validator from './validatator';
+import accessoriesService from '../../services/accessories-service';
 import Error from '../Error/Error';
 import { AuthContext } from '../../contexts/AuthContext';
 
@@ -10,12 +10,6 @@ const AddAccessories = (props) => {
   const context = useContext(AuthContext);
   const [error, setError] = useState('');
   const [inputs, setInputs] = useState({});
-  
-  axios.defaults.headers = {
-    'Content-Type': 'application/json',
-    'token': context.token, 
-    'userId': context.userId
-  }
 
   const handleSubmit = (event) => {
     setError('');
@@ -23,48 +17,36 @@ const AddAccessories = (props) => {
     const title = inputs.title;
     const url = inputs.url;
     const description = inputs.description;
-    const price = Number(inputs.price);    
+    const price = Number(inputs.price);
 
-    if(title && title.length >= 5 && title.length <= 20) {
-        if(url && url.length >= 5 && url.startsWith('http')) {
-            if(description && description.length >= 10) {
-                if(price && price >= 0.01  && price <= 9999.99) {
-                    axios.post('http://localhost:3001/accessories/add', { title, url, description, price })
-                    .then(res => {                        
-                      if(res.status === 201) {
-                        props.history.push('/accessories');
-                      }
-                    })
-                    .catch(err => {
-                      if(err.response.status === 409) {
-                        setError('Accessories already exists!');
-                        return;
-                      } if(err.response.status === 401) {
-                        props.history.push('/login');
-                        Cookie.set('token', '');
-                      }
-                      setError('Invalid!');
-                    })
-                } else {
-                    setError('Invalid price!');
-                }
-            } else {
-                setError('Description should be at least 10 characters!');
-            }
-        } else {
-            setError('Invalid url!');
-        }
-    } else {
-        setError('Title should be between 5 and 20 characters!');
+    const validationMessage = validator(title, url, description, price);
+    const isCorrect = validationMessage === '';
+
+    if (!isCorrect) {
+      setError(validationMessage);
     }
+
+    accessoriesService.add(title, url, description, price)    
+      .then(status => {        
+        if (status === 201) {
+          props.history.push('/accessories');
+        } else if (status === 409) {
+          setError('Accessories already exists!');
+          return;
+        } if (status === 401) {
+          props.history.push('/login');
+        }
+        setError('Invalid!');
+      });
+
   }
 
   const handleChange = (event) => {
     event.persist();
-    setInputs(inputs => ({...inputs, [event.target.name]: event.target.value}));
+    setInputs(inputs => ({ ...inputs, [event.target.name]: event.target.value }));
   }
 
-  if(!context.isAuthenticated) {
+  if (!context.isAuthenticated) {
     return <Redirect to="/login" />
   }
 
@@ -73,17 +55,17 @@ const AddAccessories = (props) => {
       {
         error.length ? <Error message={error} /> : null
       }
-      
+
       <h1>Add Accessories</h1>
       <form className="add-accessories-form" onSubmit={handleSubmit}>
         <label htmlFor="title">Title</label>
-        <input type="text" name="title" id="title" onChange={handleChange} /><br/>
+        <input type="text" name="title" id="title" onChange={handleChange} /><br />
         <label htmlFor="url">Url</label>
-        <input type="text" name="url" id="url" onChange={handleChange} /><br/>
+        <input type="text" name="url" id="url" onChange={handleChange} /><br />
         <label htmlFor="description">Description</label>
-        <input type="text" name="description" id="description" onChange={handleChange} /><br/>
+        <input type="text" name="description" id="description" onChange={handleChange} /><br />
         <label htmlFor="price">Price</label>
-        <input type="number" step="0.01" name="price" id="price" onChange={handleChange} /><br/>
+        <input type="number" step="0.01" name="price" id="price" onChange={handleChange} /><br />
 
         <input type="submit" className="submit-btn" value="Send" onChange={handleChange} />
       </form>

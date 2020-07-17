@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { Fragment, useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { IoMdAddCircle } from "react-icons/io";
+import accessoriesService from '../../services/accessories-service';
 import Accessory from './Accessory';
 import './index.css';
 
@@ -7,23 +9,22 @@ const Accessories = (props) => {
     const [accessories, setAccessories] = useState([]);
 
     useEffect(() => {
-        const fetchData = () => {
-            axios.get('http://localhost:3001/accessories/all')
-                .then(res => {
-                    if(res.status === 200) {                        
-                        setAccessories(res.data.accessories);
-                    }
-                })                
-        }
-        fetchData();
+        accessoriesService.load()
+            .then(acc => {
+                console.log(acc);
+                setAccessories(acc);
+            });
     }, []);
 
     return (
-        <main className="accessories-container">            
-            {                                  
-                <Accessory data={accessories} />
-            }       
-        </main>
+        <Fragment>                        
+            <Link to="/accessories/add" className="add-link"><IoMdAddCircle fontSize="3em"></IoMdAddCircle></Link>
+            <main className="accessories-container">
+                {        
+                    <Accessory data={accessories} />
+                }       
+            </main>
+        </Fragment>
     );    
 }
 

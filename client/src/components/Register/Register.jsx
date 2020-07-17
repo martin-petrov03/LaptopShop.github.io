@@ -1,9 +1,10 @@
 import React, { useState, useContext } from 'react';
 import { Redirect } from 'react-router-dom';
-import axios from 'axios';
 import './index.css';
 import Error from '../Error/Error';
 import { AuthContext } from '../../contexts/AuthContext';
+import authService from '../../services/auth-service';
+import validate from './validator';
 
 const Registration = (props) => {
   const context = useContext(AuthContext);
@@ -16,37 +17,26 @@ const Registration = (props) => {
     const email = inputs.email;
     const username = inputs.username;
     const password = inputs.password;
-    const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    const validationMessage = validate(email, username, password);
+    const isCorrect = validationMessage === '';
 
-    if (email && email.length >= 5) {
-      if (emailRegex.test(email)) {
-        if (username && username.length >= 5) {
-          if (password && password.length >= 5) {
-            axios.post('http://localhost:3001/auth/signup', { email, username, password })
-              .then(res => {
-                if (res.status === 201) {
-                  props.history.push('/login');
-                }
-              })
-              .catch(err => {
-                if (err.response.status === 409) {
-                  setError('E-Mail address already exists!');
-                  return;
-                }
-                setError('Invalid registration!');
-              })
-          } else {
-            setError('Password should be at least 5 characters!');
+    if(isCorrect) {
+      authService.register()
+        .then(res => {
+          if (res.status === 201) {
+            props.history.push('/login');
           }
-        } else {
-          setError('Username should be at least 5 characters!');
-        }
-      } else {
-        setError('Invalid email!');
-      }
+        })
+        .catch(err => {
+          if (err.response.status === 409) {
+            setError('E-Mail address already exists!');
+            return;
+          }
+          setError('Invalid registration!');
+        })
     } else {
-      setError('E-Mail should be at least 5 characters!');
-    }
+      setError(validationMessage);
+    }          
   }
 
   const handleChange = (event) => {

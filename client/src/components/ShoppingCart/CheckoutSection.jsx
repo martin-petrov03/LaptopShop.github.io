@@ -1,8 +1,8 @@
 import React, { useState, useContext } from 'react';
-import axios from 'axios';
 import './index.css';
 import Error from '../Error/Error';
 import { listContext } from '../../contexts/ShoppingCart';
+import checkoutService from '../../services/checkout-service';
 
 function CheckoutSection (props) {
     const { removeAll } = useContext(listContext);
@@ -28,12 +28,14 @@ function CheckoutSection (props) {
         } else if(address.length < 5) {
             setError('Address should be at least 5 characters!');
         } else {
-            let isCorrect = true;
-            props.cart.filter(product => {              
-                axios.post('http://localhost:3001/checkouts/add', { fullName, address, productName: product.model, quantity: product.count })
-                .catch(err => {
+            let isCorrect = true;         
+            props.cart.filter(product => {
+                const productName = product.model;
+                const quantity = product.count;
+                const status = checkoutService.add(fullName, address, productName, quantity);
+                if(status === 400 || status === 500) {
                     isCorrect = false;
-                });
+                }
                 return null;
             });
             

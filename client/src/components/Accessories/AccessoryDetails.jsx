@@ -1,49 +1,40 @@
 import React, { useState, useContext, useEffect } from 'react';
-import axios from 'axios';
 import { FaSpinner } from "react-icons/fa";
 import { IoMdAddCircle } from "react-icons/io";
 import { MdDelete } from "react-icons/md";
 import Cookie from 'js-cookie';
 import './index.css';
-import { AuthContext } from '../../contexts/AuthContext';
+import accessoriesService from '../../services/accessories-service';
 import {listContext} from '../../contexts/ShoppingCart';
 
-const AccessoryDetails = (props) => {
-    const context = useContext(AuthContext);
+const AccessoryDetails = (props) => {    
     const stt = useContext(listContext);
+    const accessoryId = props.match.params.id;
     const userId = Cookie.get('userId');
     const isAdmin = Cookie.get('isAdmin');
 
     const [accessories, setAccessories] = useState([]);
 
     useEffect(() => {
-        const fetchData = () => {
-            axios.get('http://localhost:3001/accessories/all')
-                .then(res => {                      
-                    if(res.status === 200) {
-                        setAccessories(res.data.accessories);
-                    }
-                })                
-        }
-        fetchData();
+        accessoriesService.loadAccessoryById(accessoryId)
+            .then(acc => {
+                console.log(acc);
+                setAccessories(acc);
+            });
     }, []);
 
-    axios.defaults.headers = {
-        'Content-Type': 'application/json',
-        'token': context.token,
-        'userId': context.userId
-    }
-
-    const deleteAccessory = (event) => {
-        const accessoryId = event.target.getAttribute('accessory');
-        
-        if(accessoryId) {
-            axios.delete(`http://localhost:3001/accessories/delete/${accessoryId}`)
-            .then(res => {
-                if(res.status === 200) {
+    const deleteAccessory = (event) => {                
+        if(accessoryId) {            
+            accessoriesService.delete(accessoryId)
+                .then((status) => {
+                    if(status === 200 || status === 201) {
+                        props.history.push('/accessories');
+                    } else if (status === 401) {        
+                        props.history.push('/login');
+                        return;
+                    }
                     props.history.push('/accessories');
-                }
-            })            
+                });
         }    
     }
 

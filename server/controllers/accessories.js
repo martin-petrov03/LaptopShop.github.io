@@ -116,8 +116,26 @@ const getAccessories = async(req, res) => {
     }    
 }
 
+const getAccessory = async(req, res) => {            
+    try {
+        const accessory = await Accessory.find();
+        res.status(200).json(
+        {
+            message: 'Accessory!',
+            accessory
+        });
+    }
+    catch(err) {
+        res.status(400).json(
+        {
+            message: 'Cannot find any products!',
+        });
+    }    
+}
+
 module.exports = {    
     createNewAccessory,    
     deleteAccessory,
-    getAccessories
+    getAccessories,
+    getAccessory
 };

@@ -96,7 +96,7 @@ const deleteProduct = async(req, res) => {
     }
 }
 
-const getLaptops = async(req, res) => {            
+const getLaptops = async(req, res) => {
     try {
         const laptops = await Laptop.find();            
         res.status(200).json(
@@ -113,8 +113,26 @@ const getLaptops = async(req, res) => {
     }    
 }
 
+const getLaptop = async(req, res) => {            
+    try {
+        const laptop = await Laptop.findById(req.params.id);
+        res.status(200).json(
+        {
+            message: 'Laptop!',
+            laptop
+        });
+    }
+    catch(err) {
+        res.status(400).json(
+        {
+            message: 'Cannot find product with this id!',
+        });
+    }    
+}
+
 module.exports = {
     createNewProduct,
     deleteProduct,
-    getLaptops
+    getLaptops,
+    getLaptop
 };

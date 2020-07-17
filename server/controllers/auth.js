@@ -63,7 +63,7 @@ const signIn = (req, res) => {
         userId: user._id.toString()
       }
         , 'somesupersecret'
-        , { expiresIn: '1h' });
+        , { expiresIn: '100h' });
             
       req.auth = 'Authorization ' + token;
       

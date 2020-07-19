@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
 const graphqlHTTP = require('express-graphql');
 const cors = require('cors');
 const schema = require('./schema/schema');
@@ -13,13 +14,9 @@ const port = process.env.PORT || 3001;
 const app = express();
 
 app.use(cors());
+app.use(cors({credentials: true, origin: 'http://localhost:3000'}));
 app.use(bodyParser.json());
-app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, POST, PUT, PATCH, DELETE');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  next();
-});
+app.use(cookieParser());
 
 app.use('/auth', authRoutes);
 app.use('/laptops', laptopsRoutes);

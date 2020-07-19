@@ -63,22 +63,22 @@ const signIn = (req, res) => {
         userId: user._id.toString()
       }
         , 'somesupersecret'
-        , { expiresIn: '100h' });
+        , { expiresIn: '240h' });
             
       req.auth = 'Authorization ' + token;
-      
-      let isAdmin = false;
+
+      let isAdmin;
       if(user.roles.includes('Admin')) {
         isAdmin = true;
       }
+      const userId = user._id.toString();     
 
       res.status(200).json(
         {
           message: 'User successfully logged in!',
+          myLaptops: user.myLaptops,
           token,
-          username: user.username,
-          myLaptops: user.myLaptops,          
-          userId: user._id.toString(),
+          userId,
           isAdmin
         }
       );

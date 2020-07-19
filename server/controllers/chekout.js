@@ -49,12 +49,12 @@ const createCheckout = async(req, res) => {
     }
 }
 
-const returnCheckouts = async(req, res) => {
+const getCheckouts = async(req, res) => {
     if(await isAdmin(req, res) && await isAuth(req, res)){
         try{
             const checkouts = await Checkout.find();
             res.status(200).json({ 
-                message: 'Admin!', checkouts
+                message: 'Checkouts!', checkouts
             });
             return;
         }
@@ -63,6 +63,26 @@ const returnCheckouts = async(req, res) => {
                 message: 'Cannot get checkouts!'
             });
             return;
+        }
+    } else {             
+        res.status(400).json({
+            message: 'Not Authorized!'
+        });
+    }
+}
+
+const getCheckout = async(req, res) => {
+    if(await isAdmin(req, res) && await isAuth(req, res)){
+        try{
+            const checkout = await Checkout.findById(req.params.id);
+            res.status(200).json({ 
+                message: 'Checkout', checkout
+            });            
+        }
+        catch{
+            res.status(500).json({ 
+                message: 'Cannot get checkout with this id!'
+            });            
         }
     } else {             
         res.status(400).json({
@@ -104,6 +124,7 @@ const completeCheckout = async(req, res) => {
 
 module.exports = {
     createCheckout,
-    returnCheckouts,
+    getCheckouts,
+    getCheckout,
     completeCheckout
 };

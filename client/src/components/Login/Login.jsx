@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import './index.css';
 import Error from '../Error/Error';
+import Cookie from 'js-cookie';
 import { AuthContext } from '../../contexts/AuthContext';
 import authService from '../../services/auth-service';
 import validate from './validator';
@@ -28,18 +29,19 @@ const Login = (props) => {
 
     if(isCorrect) {
       authService.login(email, password)
-        .then(res => {
-          if(res.status === 200 && res.data.token) {                
+        .then(status => {                 
+          if(status >= 200 && status < 300 && Cookie.get('username') && Cookie.get('userId')) {
             login();
-            props.history.push('/');            
+            props.history.push('/');
+            return;
           }
         })
         .catch(err => {
           setError('Invalid login!');
+          return;
         });
-    } else {
-      setError(validationMessage);
-    }    
+    }
+    setError("Something went wrong!");
   }
 
   const handleChange = (event) => {

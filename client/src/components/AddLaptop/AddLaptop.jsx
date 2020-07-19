@@ -4,12 +4,19 @@ import './index.css';
 import Error from '../Error/Error';
 import { AuthContext } from '../../contexts/AuthContext';
 import laptopService from '../../services/laptop-service';
+import authService from '../../services/auth-service';
 import validator from './validatator';
 
 const AddLaptop = (props) => {
   const context = useContext(AuthContext);
   const [error, setError] = useState('');
   const [inputs, setInputs] = useState({});
+
+  const logout = () => {
+    authService.logout();
+    const { logout } = context;
+    logout();
+  }
 
   const handleSubmit = (event) => {
     setError('');
@@ -35,7 +42,8 @@ const AddLaptop = (props) => {
             setError('Laptop already exists!');
             return;
           } else if (status === 401) {        
-            props.history.push('/login');            
+            logout();
+            props.history.push('/login');
             return;
           }
           setError('Invalid!');

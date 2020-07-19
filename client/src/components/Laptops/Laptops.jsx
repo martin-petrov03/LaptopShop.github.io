@@ -1,29 +1,36 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { IoMdAddCircle } from "react-icons/io";
-import laptopService from '../../services/laptop-service';
-import Laptop from './Laptop';
+import { FaSpinner } from "react-icons/fa";
 import './index.css';
 
 const Laptops = (props) => {
-    const [laptops, setLaptops] = useState([]);
+    const laptops = props.data;    
 
-    useEffect(() => {
-        laptopService.load()
-            .then(laptops => {
-                console.log(laptops);
-                setLaptops(laptops);
+    const displayLaptops = () => {        
+        if(!laptops || (laptops && laptops.length === 0)) {
+            return (<p className="message">No Laptops</p>)
+        } else if(laptops.loading) {
+            return (<section className="message"><FaSpinner /></section>);
+        } else {            
+            return laptops.map(laptop => {                
+                const price = laptop.price.toFixed(2);
+                const url = `/laptops/${laptop._id}`;
+
+                return (
+                    <Link to={url} className="laptop" key={laptop._id}>
+                        <h1>{laptop.model}</h1>
+                        <img src={laptop.url} alt={laptop.model} />
+                        <p>{laptop.description}</p>
+                        <h2>&#x24;{price}</h2>
+                    </Link>
+                );
             });
-    }, []);
+        }
+    }
 
-    return (
-        <Fragment>
-            <Link to="/laptops/add" className="add-link"><IoMdAddCircle fontSize="3em"></IoMdAddCircle></Link>
-            <main className="laptops-container">
-                <Laptop data={laptops} />
-            </main>
-        </Fragment>
+    return (        
+        displayLaptops()        
     );    
-};
+}
 
-export default React.memo(Laptops);
+export default Laptops;

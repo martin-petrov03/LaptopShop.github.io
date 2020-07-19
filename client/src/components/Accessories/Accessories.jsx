@@ -1,31 +1,36 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { IoMdAddCircle } from "react-icons/io";
-import accessoriesService from '../../services/accessories-service';
-import Accessory from './Accessory';
+import { FaSpinner } from "react-icons/fa";
 import './index.css';
 
 const Accessories = (props) => {
-    const [accessories, setAccessories] = useState([]);
+    const accessories = props.data;    
 
-    useEffect(() => {
-        accessoriesService.load()
-            .then(acc => {
-                console.log(acc);
-                setAccessories(acc);
+    const displayAccessories = () => {
+        if(!accessories || (accessories && accessories.length === 0)) {
+            return (<p className="message">No Accessories</p>)
+        } else if(accessories.loading) {
+            return (<section className="message"><FaSpinner /></section>);
+        } else {
+            return accessories.map(accessory => {
+                const price = accessory.price.toFixed(2);
+                const url = `/accessories/${accessory._id}`;
+                
+                return (
+                    <Link to={url} className="accessory" key={accessory._id}>
+                        <h1>{accessory.title}</h1>
+                        <img src={accessory.url} alt={accessory.title} />
+                        <p>{accessory.description}</p>
+                        <h2>&#x24;{price}</h2>
+                    </Link>
+                );
             });
-    }, []);
+        }
+    }
 
     return (
-        <Fragment>                        
-            <Link to="/accessories/add" className="add-link"><IoMdAddCircle fontSize="3em"></IoMdAddCircle></Link>
-            <main className="accessories-container">
-                {        
-                    <Accessory data={accessories} />
-                }       
-            </main>
-        </Fragment>
-    );    
+        displayAccessories()
+    );
 }
 
-export default React.memo(Accessories);
+export default Accessories;

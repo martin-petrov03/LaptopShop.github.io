@@ -1,77 +1,38 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import { FaSpinner } from "react-icons/fa";
 import './index.css';
-import checkoutService from '../../services/checkout-service';
-import Error from '../Error/Error';
 
 const Checkouts = (props) => {
-    const [checkouts, setCheckouts] = useState([]);
-    const [error, setError] = useState('');
+    const checkouts = props.data;    
 
-    const completeCheckout = (event) => {
-        const checkoutId = event.target.getAttribute('checkout');
-        if(checkoutId === '') {
-            return;
+    const displayCheckouts = () => {
+        if(!checkouts || (checkouts && checkouts.length === 0)) {
+            return (<p className="message">No Checkouts</p>)
+        } else if(checkouts.loading) {
+            return (<section className="message"><FaSpinner /></section>);
+        } else {
+            return checkouts.map(checkout => {
+                const price = (checkout.price * checkout.quantity).toFixed(2);
+                const url = `/checkouts/${checkout._id}`;
+                
+                return (
+                    <Link to={url} className="checkout" key={checkout._id}>
+                        <h2>{checkout.fullName}</h2>
+                        <h3>{checkout.address}</h3>
+                        <h2>{checkout.productName}</h2>
+                        <img src={checkout.url} alt={checkout.productName} />
+                        <p>&#x24;{price}</p>
+                        <p>Quantity: {checkout.quantity}</p>
+                    </Link>
+                );
+            });
         }
-
-        checkoutService.complete(checkoutId)
-            .then(res => { 
-                if(res.status === 200) {
-                    props.history.push('/');
-                }
-            })
-            .catch(err => {
-                if(err.response.status === 400) {
-                    setError('Cannot delete checkout!');
-                    return;
-                } else if (err.response.status === 401) {
-                    props.history.push('/login');                    
-                    return;
-                }
-                setError('Invalid!');
-            })
     }
 
-    useEffect(() => {
-        checkoutService.load()
-            .then(checkouts => {
-                setCheckouts(checkouts);
-            })
-            .catch(err => {                    
-                if(err.response.status === 401) {
-                    props.history.push('/login');                    
-                }
-            })        
-    }, [props.history]);
-
-    if(checkouts.length === 0) {
-        return (<p className="message checkout">No Checkouts</p>)
-    } else if(checkouts.loading) {
-        return (<section className="message"><FaSpinner /></section>);
-    } else if(error) {
-        return (<Error message={error} />);
-    } else {
-        return (
-            <div className="checkouts">
-            {
-                checkouts.map((checkout, i) => {            
-                    const key = checkout._id + i;
-                    return(
-                        <section className="checkout" key={key}>
-                            <h2>{checkout.fullName}</h2>
-                            <h3>{checkout.address}</h3>
-                            <h2>{checkout.productName}</h2>
-                            <img src={checkout.url} alt={checkout.productName} />
-                            <p>{checkout.price * checkout.quantity}&#x24;</p>
-                            <p>Quantity: {checkout.quantity}</p>
-                            <button className="complete-checkout-btn" checkout={checkout._id} onClick={completeCheckout}>Complete Checkout</button>
-                        </section>
-                    );                                
-                })
-            }
-            </div>
-        )
-    }    
+    return (
+        displayCheckouts()
+    );
 }
 
-export default React.memo(Checkouts);
+export default Checkouts;

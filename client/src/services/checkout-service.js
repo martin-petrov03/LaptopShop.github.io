@@ -18,7 +18,15 @@ const laptopService = {
             return res.data.checkouts;
         }
         return null;
-    },    
+    },
+    loadById: async(id) => {
+        const res = await axios.get('http://localhost:3001/checkouts/' + id);
+        
+        if(res.status === 200) {
+            return res.data.checkout;
+        }
+        return null;
+    },
     complete: async(id) => {
         let res;        
         try {

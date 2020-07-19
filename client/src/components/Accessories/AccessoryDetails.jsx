@@ -13,15 +13,14 @@ const AccessoryDetails = (props) => {
     const userId = Cookie.get('userId');
     const isAdmin = Cookie.get('isAdmin');
 
-    const [accessories, setAccessories] = useState([]);
+    const [accessory, setAccessory] = useState();
 
     useEffect(() => {
         accessoriesService.loadAccessoryById(accessoryId)
-            .then(acc => {
-                console.log(acc);
-                setAccessories(acc);
+            .then(acc => {                
+                setAccessory(acc);
             });
-    }, []);
+    }, [accessoryId]);
 
     const deleteAccessory = (event) => {                
         if(accessoryId) {            
@@ -38,44 +37,38 @@ const AccessoryDetails = (props) => {
         }    
     }
 
-    const displayAccessories = () => {
-        if(!accessories || (accessories && accessories.length === 0)) {
+    const displayAccessory = () => {
+        if(!accessory) {
             return (<p className="message">Not Found</p>)
-        } else if(accessories.loading) {
+        } else if(accessory.loading) {
             return (<section className="message"><FaSpinner /></section>);
         } else {            
-            return accessories.map(accessory => {                
-                const accessoryId = accessory._id;
-
-                if(accessoryId === props.match.params.id) {
-                    const price = accessory.price.toFixed(2);
-                    let isAuthorized = isAdmin;
-                    if(accessory && accessory.author && accessory.author  && accessory.author === userId) {
-                        isAuthorized = true;
-                    }
+            const price = accessory.price.toFixed(2);                        
+                
+            let isAuthorized = isAdmin;
+            if(accessory.author === userId) {
+                isAuthorized = true;
+            }
                     
-                    return (
-                        <section className="accessory accessory-details" key={accessoryId}>
-                            <h1>{accessory.title}</h1>
-                            <img src={accessory.url} alt={accessory.title} />
-                            <p>{accessory.description}</p>
-                            <h2>{price}&#x24;</h2>
-                            {
-                                Cookie.get('token') ? <IoMdAddCircle className="submit-btn" onClick={()=>stt.addNew(accessory)}>Add To Cart</IoMdAddCircle> : null
-                            }
-                            {                            
-                                isAuthorized ? <MdDelete className="submit-btn" accessory={accessoryId} onClick={deleteAccessory} /> : null
-                            }                            
-                        </section>         
-                    );                    
-                }
-                return null;
-            });
+            return (
+                <section className="accessory accessory-details" key={accessoryId}>
+                    <h1>{accessory.title}</h1>
+                    <img src={accessory.url} alt={accessory.title} />
+                    <p>{accessory.description}</p>
+                    <h2>&#x24;{price}</h2>
+                    {
+                        Cookie.get('token') ? <IoMdAddCircle className="submit-btn" onClick={()=>stt.addNew(accessory)}>Add To Cart</IoMdAddCircle> : null
+                    }
+                    {                            
+                        isAuthorized ? <MdDelete className="submit-btn" accessory={accessoryId} onClick={deleteAccessory} /> : null
+                    }                            
+                </section>         
+            );               
         }
     }
 
     return (
-        displayAccessories()
+        displayAccessory()
     );
 }
 

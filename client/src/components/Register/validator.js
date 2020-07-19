@@ -19,3 +19,5 @@ const validate = (email, username, password) => {
         return 'E-Mail should be at least 5 characters!';
     }
 }
+
+export default validate;

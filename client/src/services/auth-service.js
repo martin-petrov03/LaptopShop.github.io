@@ -20,11 +20,12 @@ const authService = {
             return err.response.status;
         }
 
-        if(res.status == 200) {
+        if(res.status === 200) {
             if(res.status === 200 && res.data.token){
                 Cookie.set('username', res.data.username);
                 Cookie.set('userId', res.data.userId);
-                Cookie.set('token', res.data.token);              
+                Cookie.set('token', res.data.token, { expires: 10 });          
+                    
                 if(res.data.isAdmin === true) { 
                   Cookie.set('isAdmin', res.data.isAdmin);
                 }
@@ -47,6 +48,8 @@ const authService = {
         catch(err) {
             return err.response.status;
         }
+
+        return res.status;
     }
 }
 

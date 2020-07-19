@@ -21,8 +21,7 @@ const LaptopDetails = (props) => {
         laptopService.loadLaptopById(laptopId)
             .then(laptop => {
                 laptop.price = laptop.price.toFixed(2);
-                setLaptop(laptop);
-                console.log(laptop);
+                setLaptop(laptop);                
                 if(laptop.author === userId) {
                     isAuthorized = true;
                 }
@@ -49,7 +48,7 @@ const LaptopDetails = (props) => {
             <h1>{laptop.title}</h1>
             <img src={laptop.url} alt={laptop.title} />
             <p>{laptop.description}</p>
-            <h2>{laptop.price}&#x24;</h2>
+            <h2>&#x24;{laptop.price}</h2>
             {
                 isAuth ? <IoMdAddCircle className="submit-btn add-to-cart" onClick={()=>stt.addNew(laptop)}>Add To Cart</IoMdAddCircle> : null
             }

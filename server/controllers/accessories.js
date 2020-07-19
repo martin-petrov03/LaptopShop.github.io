@@ -116,9 +116,9 @@ const getAccessories = async(req, res) => {
     }    
 }
 
-const getAccessory = async(req, res) => {            
+const getAccessory = async(req, res) => {
     try {
-        const accessory = await Accessory.find();
+        const accessory = await Accessory.findById(req.params.id);
         res.status(200).json(
         {
             message: 'Accessory!',

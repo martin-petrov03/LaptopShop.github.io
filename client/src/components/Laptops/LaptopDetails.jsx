@@ -45,7 +45,7 @@ const LaptopDetails = (props) => {
 
     return (
         <section className="laptop laptop-details" key={laptop.id}>
-            <h1>{laptop.title}</h1>
+            <h1>{laptop.model}</h1>
             <img src={laptop.url} alt={laptop.title} />
             <p>{laptop.description}</p>
             <h2>&#x24;{laptop.price}</h2>

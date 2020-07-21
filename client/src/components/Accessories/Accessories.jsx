@@ -7,9 +7,7 @@ const Accessories = (props) => {
     const accessories = props.data;    
 
     const displayAccessories = () => {
-        if(!accessories || (accessories && accessories.length === 0)) {
-            return (<p className="message">No Accessories</p>)
-        } else if(accessories.loading) {
+        if(accessories.loading) {
             return (<section className="message"><FaSpinner /></section>);
         } else {
             return accessories.map(accessory => {

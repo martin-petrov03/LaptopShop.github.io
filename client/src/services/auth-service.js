@@ -1,5 +1,7 @@
 import axios from 'axios';
 import Cookie from 'js-cookie';
+import config from './config';
+const BASE_URL = config.BASE_URL;
 
 const userId = Cookie.get('userId');
 const token = Cookie.get('token');
@@ -14,7 +16,7 @@ const authService = {
     login: async(email, password) => {
         let res;        
         try {
-            res = await axios.post('http://localhost:3001/auth/signin', { email, password });            
+            res = await axios.post(BASE_URL + 'auth/signin', { email, password });            
         }
         catch(err) {
             return err.response.status;
@@ -43,7 +45,7 @@ const authService = {
     register: async(email, username, password) => {        
         let res;
         try {
-            res = await axios.post('http://localhost:3001/auth/signup', { email, username, password });            
+            res = await axios.post(BASE_URL + 'auth/signup', { email, username, password });            
         }
         catch(err) {
             return err.response.status;

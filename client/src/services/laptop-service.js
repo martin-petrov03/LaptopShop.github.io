@@ -1,5 +1,7 @@
 import axios from 'axios';
 import Cookie from 'js-cookie';
+import config from './config';
+const BASE_URL = config.BASE_URL;
 
 const userId = Cookie.get('userId');
 const token = Cookie.get('token');
@@ -12,7 +14,7 @@ axios.defaults.headers = {
 
 const laptopService = {
     load: async() => {        
-        const res = await axios.get('http://localhost:3001/laptops/all');
+        const res = await axios.get(BASE_URL + 'laptops/all');
         
         if(res.status === 200) {
             return res.data.laptops;
@@ -20,7 +22,7 @@ const laptopService = {
         return null;
     },
     loadLaptopById: async(id) => {
-        const res = await axios.get('http://localhost:3001/laptops/' + id);
+        const res = await axios.get(BASE_URL + 'laptops/' + id);
         
         if(res.status === 200) {
             return res.data.laptop;
@@ -30,7 +32,7 @@ const laptopService = {
     delete: async(id) => {
         let res;
         try {
-            res = await axios.delete(`http://localhost:3001/laptops/delete/${id}`);;        
+            res = await axios.delete(BASE_URL + `laptops/delete/${id}`);;        
         }
         catch(err) {            
             return err.response.status;
@@ -40,7 +42,7 @@ const laptopService = {
     add: async(model, url, description, price) => {        
         let res;
         try {
-            res = await axios.post('http://localhost:3001/laptops/add', { model, url, description, price });        
+            res = await axios.post(BASE_URL + 'laptops/add', { model, url, description, price });        
         }
         catch(err) {            
             return err.response.status;

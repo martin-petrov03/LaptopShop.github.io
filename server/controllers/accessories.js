@@ -1,4 +1,3 @@
-const Laptop = require('../models/Laptop');
 const Accessory = require('../models/Accessory');
 const isAuth = require('../middleware/is-auth');
 const isAdmin = require('../middleware/is-admin');
@@ -99,7 +98,7 @@ const deleteAccessory = async(req, res) => {
     }
 }
 
-const getAccessories = async(req, res) => {            
+const getAccessories = async(req, res) => {  
     try {
         const accessories = await Accessory.find();            
         res.status(200).json(

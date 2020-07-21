@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
-const uri = 'mongodb+srv://Admin:admin@cluster0.7amxv.mongodb.net/LaptopShop?retryWrites=true&w=majority';
+const uri = 'mongodb+srv://Admin:admin@eshop.zmcak.mongodb.net/LaptopShop?retryWrites=true&w=majority';
+//const uri = 'mongodb+srv://Admin:admin@cluster0.7amxv.mongodb.net/test';
+//mongodb://localhost:27017/laptop-shop
 
 mongoose.Promise = global.Promise;
 module.exports = () => {
-    mongoose.set('useCreateIndex', true);
-    //mongodb+srv://Admin:<password>@cluster0-ehp1t.mongodb.net/<dbname>?retryWrites=true&w=majority
-    //mongodb://localhost:27017/laptop-shop
+    mongoose.set('useCreateIndex', true);       
   
     mongoose.connect(uri, {
         useNewUrlParser: true

@@ -1,5 +1,4 @@
 const Laptop = require('../models/Laptop');
-const User = require('../models/User');
 const isAuth = require('../middleware/is-auth');
 const isAdmin = require('../middleware/is-admin');
 
@@ -99,6 +98,7 @@ const deleteProduct = async(req, res) => {
 const getLaptops = async(req, res) => {
     try {
         const laptops = await Laptop.find();            
+        
         res.status(200).json(
         {
             message: 'Laptops!',
@@ -113,7 +113,7 @@ const getLaptops = async(req, res) => {
     }    
 }
 
-const getLaptop = async(req, res) => {            
+const getLaptop = async(req, res) => {        
     try {
         const laptop = await Laptop.findById(req.params.id);
         res.status(200).json(

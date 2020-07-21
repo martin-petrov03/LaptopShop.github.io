@@ -2,12 +2,12 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const encryption = require('../util/encryption');
 
-const signUp = (req, res) => {
+const signUp = (req, res) => {  
   const { email, username, password } = req.body;  
   const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   const usernameRegex = /[A-Za-z0-9]+/;
 
-  if(!emailRegex.test(email) || !usernameRegex.test(username) || email.length < 5 || username.length < 5 || password.length < 5) {
+  if(!emailRegex.test(email) || !usernameRegex.test(username) || email.length < 5 || username.length < 5 || password.length < 5) {    
     res.status(422)
       .json({ message: 'Invalid Data!' });
       return;

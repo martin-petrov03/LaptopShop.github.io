@@ -4,7 +4,7 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     justify-items: center;
-    justify-content: space-between;
+    justify-content: space-between;    
 }
 
 .add-link {
@@ -34,7 +34,7 @@
 .accessory-container > .message {
     grid-column: 1 / span 3;
     grid-row: 1;
-    margin-top: 5em;
+    margin-top: 5em;    
 }
 
 .accessory .submit-btn {

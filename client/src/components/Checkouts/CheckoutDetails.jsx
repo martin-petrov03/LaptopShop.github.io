@@ -7,7 +7,6 @@ const CheckoutDetails = (props) => {
     const checkoutId = props.match.params.id;    
 
     const [checkout, setCheckout] = useState();
-    const [error, setError] = useState();
 
     useEffect(() => {
         checkoutService.loadById(checkoutId)

@@ -11,7 +11,7 @@ axios.defaults.headers = {
 };
 
 const laptopService = {
-    load: async() => {
+    load: async() => {        
         const res = await axios.get('http://localhost:3001/laptops/all');
         
         if(res.status === 200) {

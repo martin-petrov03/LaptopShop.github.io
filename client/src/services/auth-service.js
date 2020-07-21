@@ -40,7 +40,7 @@ const authService = {
         Cookie.set('userId', '');
         Cookie.set('isAdmin', '');
     },
-    register: async(email, username, password) => {
+    register: async(email, username, password) => {        
         let res;
         try {
             res = await axios.post('http://localhost:3001/auth/signup', { email, username, password });            

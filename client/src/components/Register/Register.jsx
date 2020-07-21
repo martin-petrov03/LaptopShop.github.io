@@ -21,7 +21,7 @@ const Registration = (props) => {
     const isCorrect = validationMessage === '';
 
     if(isCorrect) {
-      authService.register()
+      authService.register(email, username, password)
         .then(res => {
           if (res.status === 201) {
             props.history.push('/login');

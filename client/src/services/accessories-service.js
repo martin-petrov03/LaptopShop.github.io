@@ -43,7 +43,7 @@ const laptopService = {
             res = await axios.post('http://localhost:3001/accessories/add', { title, url, description, price });   
         }
         catch(err) {            
-            return err.response.status;
+            return err.response;
         }
         return res.status;
     }

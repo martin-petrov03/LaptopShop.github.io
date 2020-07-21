@@ -56,7 +56,7 @@ const AddAccessories = (props) => {
         error.length ? <Error message={error} /> : null
       }
 
-      <h1>Add Accessories</h1>
+      <h1>Add Accessory</h1>
       <form className="add-accessories-form" onSubmit={handleSubmit}>
         <label htmlFor="title">Title</label>
         <input type="text" name="title" id="title" onChange={handleChange} /><br />

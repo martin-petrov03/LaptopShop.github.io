@@ -1,5 +1,5 @@
 # Laptop Shop
-https://pedantic-villani-642f37.netlify.app/
+https://tech-eshop.netlify.app/
 
 ### Description
 

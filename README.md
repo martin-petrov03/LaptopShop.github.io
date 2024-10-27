@@ -1,4 +1,4 @@
-# Laptop Shop
+# Electronics Marketplace
 https://tech-eshop.netlify.app/
 
 ### Description
